@@ -1,0 +1,24 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using WebApp.Core;
+using WebApp.Core.Collections;
+using WebApp.Service.Models.Configurations;
+using WebApp.Services;
+using WebApp.Sql.Entities.Configurations;
+
+namespace WebApp.Service.Services.Configurations
+{
+   public interface IWarningTypeService : IBaseService<WarningType>
+    {
+        Task<Dropdown<WarningTypeModel>> GetDropdownAsync(string searchText = null, int size = CommonVariables.DropdownSize);
+        Task<Paging<WarningTypeModel>> GetSearchAsync(int pageIndex = CommonVariables.pageIndex, int pageSize = CommonVariables.pageSize, string searchText = null);
+        Task<Paging<WarningTypeModel>> GetFilterAsync(int pageIndex = CommonVariables.pageIndex, int pageSize = CommonVariables.pageSize, string filterText1 = null);
+        Task<WarningTypeModel> GetWarningTypeDetailAsync(long waringtypeId);
+        Task<WarningTypeModel> AddWarningTypeDetailAsync(WarningTypeModel model);
+        Task<WarningTypeModel> UpdateWarningTypeDetailAsync(long waringtypeId, WarningTypeModel model);
+        Task<WarningTypeModel> UpdateWarningTypeDetailAsync(long waringtypeId, string model);
+    }
+}
