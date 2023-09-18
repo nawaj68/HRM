@@ -1,0 +1,10 @@
+[{
+    "id":1,
+    "companyName":"Infosystem",
+    "address":"Dhaka",
+    "countryId":1,
+    "stateId":1,
+    "cityId":1,
+    "zipCode":"54560",
+    "contactNumber":"0178533995"
+}]

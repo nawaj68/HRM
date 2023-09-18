@@ -1,0 +1,96 @@
+<div class="row">
+    <div class="col-md-12">
+        <h1>New Approval Workflow <span>Form</span></h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12"></div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="t-basic-form t-form">
+            <form [formGroup]="newApprovalWorkflowForm">
+                <div class="row">
+                    <div class="col-md-6">
+                        <mat-form-field class="t-full-width">
+                            <mat-label> Company </mat-label>
+                            <mat-select formControlName="companyId">
+                                <mat-form-field class="example-full-width">
+                                    <input matInput placeholder="Search Company" autocomplete="off"
+                                        (keyup)="onCompanyFilter($event)"
+                                        (keydown)="$event.stopPropagation()" />
+                                </mat-form-field>
+                                <mat-option *ngFor="let company of filteredCompanyInfo | slice: 0:10" [value]="company.id">
+                              <small>
+                                {{ company.companyName }}
+                              </small>
+                            </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="newApprovalWorkflowForm.controls['companyId'].hasError('required')">
+                                Company is <strong>required</strong>
+                              </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-form-field class="t-full-width">
+                            <mat-label>
+                                New Approval Workflow Name
+                                <span class="required">*</span>
+                            </mat-label>
+                            <input matInput formControlName="newApprovalWorkflowName" placeholder="New Approval Workflow Name" />
+                            <mat-error *ngIf="newApprovalWorkflowForm.controls['newApprovalWorkflowName'].hasError('required')">
+                                 <strong>required</strong>
+                            </mat-error>
+    
+                        </mat-form-field>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <mat-form-field class="t-full-width">
+                            <mat-label>
+                                Remarks
+                                <span class="required">*</span>
+                            </mat-label>
+                            <input matInput formControlName="remarks" placeholder="remarks" />
+                            <mat-error *ngIf="newApprovalWorkflowForm.controls['remarks'].hasError('required')">
+                                 <strong>required</strong>
+                            </mat-error>
+                            
+                        </mat-form-field>
+                    </div>
+                   
+             
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <button class="btn btn-secondary t-mat-raised-button" mat-raised-button
+                            (click)="reset()">Reset</button>
+                        <button class="btn btn-secondary t-mat-raised-button" mat-raised-button
+                            (click)="clearState()">clear</button>
+                        <button mat-raised-button color="primary" (click)="save()"
+                            class="btn btn-primary t-mat-raised-button">
+                            {{ isEdit ? "Update" : "Add" }}
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+    <!-- <div class="col-md-4">
+      <div class="div-pre">
+        <p *ngIf="errors">errors</p>
+        {{errors | json}}
+        <p>Instant Value</p>
+        {{ employeesForm.getRawValue() | json }}
+  
+        <p>Last Submit Value</p>
+        {{ employeesFormValue | json }}
+      </div>
+    </div> -->
+</div>
+
+
+

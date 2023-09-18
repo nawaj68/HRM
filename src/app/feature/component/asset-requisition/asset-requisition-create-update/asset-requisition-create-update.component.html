@@ -1,0 +1,151 @@
+<div class="row">
+    <div class="col-md-12">
+        <h1>Asset Requisition <span>Form</span></h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12"></div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="t-basic-form t-form">
+            <form [formGroup]="assetRequisitionForm">
+                <div class="row">
+                    <div class="col-md-6">
+                        <mat-form-field class="t-full-width">
+                            <mat-label> Employee </mat-label>
+                            <mat-select formControlName="employeeId">
+                                <mat-form-field class="example-full-width">
+                                    <input matInput placeholder="Search Employee" autocomplete="off"
+                                        (keyup)="onEmployeeFilter($event)"
+                                        (keydown)="$event.stopPropagation()" />
+                                </mat-form-field>
+                                <mat-option *ngFor="let employee of filteredEmployees | slice: 0:10" [value]="employee.id">
+                              <small>
+                                {{ employee.name }}
+                              </small>
+                            </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="assetRequisitionForm.controls['employeeId'].hasError('required')">
+                                Employee is <strong>required</strong>
+                              </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-form-field class="t-full-width">
+                            <mat-label>
+                                ApprovalById
+                                <span class="required">*</span>
+                            </mat-label>
+                            <input matInput formControlName="approvalById" placeholder="  approvalById" />
+                            <mat-error *ngIf="assetRequisitionForm.controls['approvalById'].hasError('required')">
+                                 <strong>required</strong>
+                            </mat-error>
+    
+                        </mat-form-field>
+                    </div> 
+                   <!-- <div class="col-md-6">
+                        <mat-form-field class="t-full-width">
+                            <mat-label>
+                                Asset
+                                <span class="required">*</span>
+                            </mat-label>
+                            <input matInput formControlName="assetId" placeholder="  Asset" />
+                             <mat-error *ngIf="assetRequisitionForm.controls['assetId'].hasError('required')">
+                                 <strong>required</strong>
+                            </mat-error> 
+    
+                         </mat-form-field>
+                    </div> --> 
+                       <div class="col-md-6">
+                        <mat-form-field class="t-full-width">
+                            <mat-label> Asset </mat-label>
+                            <mat-select formControlName="assetId">
+                                <mat-form-field class="example-full-width">
+                                    <input matInput placeholder="Search Asset" autocomplete="off"
+                                        (keyup)="onAssetFilter($event)"
+                                        (keydown)="$event.stopPropagation()" />
+                                </mat-form-field>
+                                <mat-option *ngFor="let asset of filteredAsset | slice: 0:10" [value]="asset.id">
+                              <small>
+                                {{ asset.assetName }}
+                              </small>
+                            </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="assetRequisitionForm.controls['assetId'].hasError('required')">
+                                Asset is <strong>required</strong>
+                              </mat-error>
+                        </mat-form-field>
+                    </div> 
+                 
+
+                      <div class="col-md-6">
+                        <mat-form-field class="t-full-width" appearance="outline">
+                          <mat-label>
+                            Approval Date
+
+                            <span class="required">*</span>
+                          </mat-label>
+                          <input
+                            matInput
+                            [matDatepicker]="approvalDatePicker"
+                            [max]="today"
+                            formControlName="approvalDate"
+                            placeholder="approvalDate"
+                            name="approvalDate"
+                            (dateChange)="dateChange('change', $event)"
+                          />
+                          <mat-datepicker-toggle matSuffix [for]="approvalDatePicker"></mat-datepicker-toggle>
+                          <mat-datepicker #approvalDatePicker></mat-datepicker>
+                          <mat-error *ngIf="assetRequisitionForm.controls['approvalDate'].hasError('required')">
+                            Approval date is <strong>required</strong>
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                    
+                    <div class="col-md-6">
+                        <mat-form-field class="t-full-width">
+                            <mat-label>
+                                Remark
+                                <span class="required">*</span>
+                            </mat-label>
+                            <input matInput formControlName="remarks" placeholder="remarks" />
+                            <mat-error *ngIf="assetRequisitionForm.controls['remarks'].hasError('required')">
+                                Remark is <strong>required</strong>
+                            </mat-error>
+                            
+                        </mat-form-field>
+                    </div>
+        
+             
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <button class="btn btn-secondary t-mat-raised-button" mat-raised-button
+                            (click)="reset()">Reset</button>
+                        <button class="btn btn-secondary t-mat-raised-button" mat-raised-button
+                            (click)="clearState()">clear</button>
+                        <button mat-raised-button color="primary" (click)="save()"
+                            class="btn btn-primary t-mat-raised-button">
+                            {{ isEdit ? "Update" : "Add" }}
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+    <!-- <div class="col-md-4">
+      <div class="div-pre">
+        <p *ngIf="errors">errors</p>
+        {{errors | json}}
+        <p>Instant Value</p>
+        {{ employeesForm.getRawValue() | json }}
+  
+        <p>Last Submit Value</p>
+        {{ employeesFormValue | json }}
+      </div>
+    </div> -->
+</div>

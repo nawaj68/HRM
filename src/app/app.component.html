@@ -1,0 +1,157 @@
+<ngx-loading-bar color="#FF4081"></ngx-loading-bar>
+<mat-toolbar color="primary">
+  <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon"
+    (click)="sidenav.toggle()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span>My App</span>
+  <span class="example-spacer"></span>
+  <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+    <mat-icon>favorite</mat-icon>
+  </button>
+  <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+    <mat-icon>share</mat-icon>
+  </button>
+  <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item>
+      <mat-icon>dialpad</mat-icon>
+      
+      <span>Redial</span>
+    </button>
+    <button mat-menu-item disabled>
+      <mat-icon>voicemail</mat-icon>
+      <span>Check voice mail</span>
+    </button>
+    <button mat-menu-item>
+      <mat-icon>notifications_off</mat-icon>
+      <span>Disable alerts</span>
+    </button>
+  </mat-menu>
+</mat-toolbar>
+
+<mat-sidenav-container class="example-sidenav-container" [hasBackdrop]="false">
+  <mat-sidenav #sidenav [mode]="'side'" [(opened)]="isSidebarOpen" (opened)="sidebarToggle(true)"
+    (closed)="sidebarToggle(false)" class="sidebar-left">
+    <mat-nav-list>
+      <ng-container *ngFor="let nav of navs">
+        <mat-list-item routerLinkActive="active">
+          <mat-icon mat-list-icon>{{ nav.icon }}</mat-icon>
+          <a matLine routerLink="{{ nav.path }}"> {{ nav.name }}</a>
+
+          <button mat-icon-button *ngIf="nav.done">
+            <mat-icon>done</mat-icon>
+          </button>
+          <mat-nav-list *ngIf="nav.children">
+            <ng-container *ngFor="let nav1 of nav.children">
+              <mat-list-item>
+                <a matLine routerLink="{{ nav1.path }}" routerLinkActive="active"> {{ nav1.name }}</a>
+              </mat-list-item>
+            </ng-container>
+          </mat-nav-list>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+      </ng-container>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <!-- <mat-sidenav
+    #sidenav
+    [mode]="'side'"
+    [(opened)]="isSidebarOpen"
+    (opened)="sidebarToggle(true)"
+    (closed)="sidebarToggle(false)"
+    class="sidebar-left"
+  >
+    <mat-list>
+      <ng-container *ngFor="let nav of navs">
+        <mat-expansion-panel [hideToggle]="!nav.children" [disabled]="!nav.children">
+          <mat-expansion-panel-header>
+            <mat-list-item>
+              <a class="list-item-1" matLine routerLink="{{ nav.path }}" routerLinkActive="active"> {{ nav.name }}</a>
+            </mat-list-item>
+          </mat-expansion-panel-header>
+          <mat-panel-description>
+            <mat-list *ngIf="nav.children">
+              <ng-container *ngFor="let item of nav.children">
+                <mat-expansion-panel [hideToggle]="!item.children" [disabled]="!item.children">
+                  <mat-expansion-panel-header>
+                    <mat-list-item>
+                      <a class="list-item-2" matLine routerLink="{{ item.path }}" routerLinkActive="active"> {{ item.name }}</a>
+                    </mat-list-item>
+                  </mat-expansion-panel-header>
+                  <mat-panel-description>
+                    <mat-list *ngIf="item.children">
+                      <ng-container *ngFor="let subItem of item.children">
+                        <mat-list-item>
+                          <a class="list-item-3" matLine routerLink="{{ subItem.path }}" routerLinkActive="active"> {{ subItem.name }}</a>
+                        </mat-list-item>
+                      </ng-container>
+                    </mat-list>
+                  </mat-panel-description>
+                </mat-expansion-panel>
+              </ng-container>
+            </mat-list>
+          </mat-panel-description>
+        </mat-expansion-panel>
+      </ng-container>
+    </mat-list>
+  </mat-sidenav> -->
+
+  <!-- <mat-sidenav #appDrawer mode="side" opened="true" [ngClass]="{'mini-menu': isMini}">
+    <mat-nav-list>
+      <app-mega-menu *ngFor="let item of navs" [item]="item"></app-mega-menu>
+      <mat-list-item>
+        <mat-icon mat-list-icon (click)="isMini = !isMini">arrow_left</mat-icon>
+      </mat-list-item>
+    </mat-nav-list>
+  </mat-sidenav> -->
+
+  <mat-sidenav-content>
+    <div [@routerTransition]="prepareRoute(outlet)">
+      <!-- <button type="button" mat-button (click)="sidenav.toggle()">
+      Toggle sidenav
+    </button>
+    <button type="button" mat-button (click)="sidenavright.toggle()">
+      Toggle sidenav right
+    </button> -->
+      <div class="sidebar-right-arrow">
+        <button type="button" mat-button (click)="sidenavright.toggle()">
+          <mat-icon aria-hidden="false" aria-label="Example home icon" *ngIf="isSidebarRightOpen">keyboard_arrow_right
+          </mat-icon>
+          <mat-icon aria-hidden="false" aria-label="Example home icon" *ngIf="!isSidebarRightOpen">keyboard_arrow_left
+          </mat-icon>
+        </button>
+      </div>
+      <!-- https://stackoverflow.com/questions/48073057/open-close-sidenav-from-another-component -->
+      <app-content-title></app-content-title>
+      <router-outlet #outlet="outlet"></router-outlet>
+    </div>
+  </mat-sidenav-content>
+
+  <mat-sidenav #sidenavright [mode]="'side'" position="end" class="sidebar-right" [(opened)]="isSidebarRightOpen"
+    (opened)="sidebarRightToggle(true)" (closed)="sidebarRightToggle(false)" class="right-sidenav">
+    <!-- <mat-nav-list>
+      <mat-list-item *ngFor="let nav of navs">
+        <a matLine routerLink={{nav.path}}>{{ nav.name }}</a>
+        <button mat-icon-button>
+          <mat-icon>info</mat-icon>
+        </button>
+      </mat-list-item>
+      <a mat-list-item routerLink="/form" *ngFor="let nav of navs">{{nav}}</a>
+    </mat-nav-list> -->
+    <div class="div-pre">
+      <strong>errors</strong>
+      <p *ngIf="reactiveFormData?.errors">
+        {{ reactiveFormData?.errors | json }}
+      </p>
+      <br />
+      <strong>Instant Value</strong>
+      <p *ngIf="reactiveFormData?.data">
+        {{ reactiveFormData?.data | json }}
+      </p>
+    </div>
+  </mat-sidenav>
+</mat-sidenav-container>

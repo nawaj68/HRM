@@ -1,0 +1,149 @@
+<div class="row">
+    <div class="col-md-12">
+        <h1>Leave Type <span>Form</span></h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12"></div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="t-basic-form t-form">
+            <form [formGroup]="openingYearForm">
+                <div class="row">
+                    <div class="col-md-6">
+                        <mat-form-field class="t-full-width">
+                            <mat-label> Company </mat-label>
+                            <mat-select formControlName="companyId">
+                                <mat-form-field class="example-full-width">
+                                    <input matInput placeholder="Search Company" autocomplete="off"
+                                        (keyup)="onCompanyFilter($event)"
+                                        (keydown)="$event.stopPropagation()" />
+                                </mat-form-field>
+                                <mat-option *ngFor="let company of filteredCompanyInfo | slice: 0:10" [value]="company.id">
+                              <small>
+                                {{ company.companyName }}
+                              </small>
+                            </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="openingYearForm.controls['companyId'].hasError('required')">
+                                Company is <strong>required</strong>
+                              </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-form-field class="t-full-width">
+                            <mat-label>
+                                Opening ear Number
+                                <span class="required">*</span>
+                            </mat-label>
+                            <input matInput formControlName="openingYearNumber" placeholder="Opening Year Number" />
+                            <mat-error *ngIf="openingYearForm.controls['openingYearNumber'].hasError('required')">
+                                 <strong>required</strong>
+                            </mat-error>
+    
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-form-field class="t-full-width" appearance="outline">
+                          <mat-label>
+                            Opening Date
+                            <span class="required">*</span>
+                          </mat-label>
+                          <input
+                            matInput
+                            [matDatepicker]="openingDatePicker"
+                            [max]="today"
+                            formControlName="openingDate"
+                            placeholder="openingDate"
+                            name="openingDate"
+                            (dateChange)="dateChange('change', $event)"
+                          />
+                          <mat-datepicker-toggle matSuffix [for]="openingDatePicker"></mat-datepicker-toggle>
+                          <mat-datepicker #openingDatePicker></mat-datepicker>
+                          <mat-error *ngIf="openingYearForm.controls['openingDate'].hasError('required')">
+                            Opening date is <strong>required</strong>
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-6">
+                        <mat-form-field class="t-full-width" appearance="outline">
+                          <mat-label>
+                            End Date
+                            <span class="required">*</span>
+                          </mat-label>
+                          <input
+                            matInput
+                            [matDatepicker]="endDatePicker"
+                            [max]="today"
+                            formControlName="endDate"
+                            placeholder="endDate"
+                            name="endDate"
+                            (dateChange)="dateChange('change', $event)"
+                          />
+                          <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+                          <mat-datepicker #endDatePicker></mat-datepicker>
+                          <mat-error *ngIf="openingYearForm.controls['endDate'].hasError('required')">
+                            End date is <strong>required</strong>
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-6">
+                        <mat-form-field class="t-full-width" appearance="outline">
+                          <mat-label>
+                            Closing Year
+                            <span class="required">*</span>
+                          </mat-label>
+                          <input
+                            matInput
+                            [matDatepicker]="closingYearPicker"
+                            [max]="today"
+                            formControlName="closingYear"
+                            placeholder="closingYear"
+                            name="closingYear"
+                            (dateChange)="dateChange('change', $event)"
+                          />
+                          <mat-datepicker-toggle matSuffix [for]="closingYearPicker"></mat-datepicker-toggle>
+                          <mat-datepicker #closingYearPicker></mat-datepicker>
+                          <mat-error *ngIf="openingYearForm.controls['closingYear'].hasError('required')">
+                            Closing Year is <strong>required</strong>
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                    
+        
+             
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <button class="btn btn-secondary t-mat-raised-button" mat-raised-button
+                            (click)="reset()">Reset</button>
+                        <button class="btn btn-secondary t-mat-raised-button" mat-raised-button
+                            (click)="clearState()">clear</button>
+                        <button mat-raised-button color="primary" (click)="save()"
+                            class="btn btn-primary t-mat-raised-button">
+                            {{ isEdit ? "Update" : "Add" }}
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+    <!-- <div class="col-md-4">
+      <div class="div-pre">
+        <p *ngIf="errors">errors</p>
+        {{errors | json}}
+        <p>Instant Value</p>
+        {{ employeesForm.getRawValue() | json }}
+  
+        <p>Last Submit Value</p>
+        {{ employeesFormValue | json }}
+      </div>
+    </div> -->
+</div>
+
+
+

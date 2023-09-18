@@ -1,0 +1,63 @@
+[
+    {
+        "id": 1,
+        "name": "Rubel",
+        "phone": "017523554",
+        "email": "email@gmail.com",
+        "dateofBirth": "2022-3-5",
+        "genderId": 1,
+        "address": "Dhaka",
+        "basicSalary":1203,
+        "status": false,
+        "joiningDate": "2022--02-01",
+        "resignDate": "2022-05-6",
+        "designationId":1,
+        "departmentId":1,
+        "acountName":"Personal",
+        "acountNumber":"sdd125",
+        "swiftCode":"df45632",
+        "brance":"Dhanmondi"
+    
+    },
+
+    {
+        "id": 2,
+        "name": "Rubel",
+        "phone": "017523554",
+        "email": "email@gmail.com",
+        "dateofBirth": "2022-3-5",
+        "genderId": 1,
+        "address": "Dhaka",
+        "basicSalary":1203,
+        "status": false,
+        "joiningDate": "2022--02-01",
+        "resignDate": "2022-05-6",
+        "designationId":1,
+        "departmentId":1,
+        "acountName":"Personal",
+        "acountNumber":"sdd125",
+        "swiftCode":"df45632",
+        "brance":"Dhanmondi"
+    
+    },
+    {
+        "id": 3,
+        "name": "Rubel",
+        "phone": "017523554",
+        "email": "email@gmail.com",
+        "dateofBirth": "2022-3-5",
+        "genderId": 1,
+        "address": "Dhaka",
+        "basicSalary":1203,
+        "status": false,
+        "joiningDate": "2022--02-01",
+        "resignDate": "2022-05-6",
+        "designationId":1,
+        "departmentId":1,
+        "acountName":"Personal",
+        "acountNumber":"sdd125",
+        "swiftCode":"df45632",
+        "brance":"Dhanmondi"
+    
+    }
+]

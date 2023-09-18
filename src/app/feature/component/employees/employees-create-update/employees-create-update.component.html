@@ -1,0 +1,272 @@
+<div class="row">
+    <div class="col-md-12">
+      <h1>Employees Information <span>Form</span></h1>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-md-12"></div>
+  </div>
+  
+  <div class="row">
+    <div class="col-md-12">
+      <div class="t-basic-form t-form">
+        <form [formGroup]="employeesForm">
+          <div class="row">
+            <div class="col-md-12">
+              <mat-card class="t-card">
+                <mat-card-content>
+                  <div class="row">
+                    <div class="col-md-3">
+                      <div class="profile" (click)="avatarClassicInput.click()">
+                        <p *ngIf="!avaterPreview">MK</p>
+                        <input type="hidden" formControlName="avatar" />
+                        <img [src]="avaterPreview" *ngIf="!!avaterPreview" alt="">
+                        <input type="file" hidden #avatarClassicInput (change)="uploadFileAttach($event)">
+                      </div>
+                    </div>
+                  </div>
+                </mat-card-content>
+              </mat-card>
+  
+              <mat-card class="t-card">
+                <mat-card-header>
+                  <mat-card-subtitle>Employee Information</mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <mat-form-field class="t-full-width">
+                        <mat-label>
+                          Name
+                          <span class="required">*</span>
+                        </mat-label>
+                        <input matInput formControlName="name" placeholder="Enter Name" />
+                        <mat-error *ngIf="employeesForm.controls['name'].hasError('required')">
+                           Name is <strong>required</strong>
+                        </mat-error>
+                        <mat-error *ngIf="employeesForm.controls['name'].hasError('maxlength')">
+                          Name max length is <strong>20</strong>
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                      <mat-form-field class="t-full-width">
+                        <mat-label>
+                          Phone
+                          <span class="required">*</span>
+                        </mat-label>
+                        <input matInput formControlName="phone" placeholder="Enter Phone Number " />
+                        <mat-error *ngIf="employeesForm.controls['phone'].hasError('required')">
+                          phone Number is <strong>required</strong>
+                        </mat-error>
+                        <mat-error
+                          *ngIf="
+                            employeesForm.controls['phone'].hasError('phoneValid') &&
+                            !employeesForm.controls['phone'].hasError('required')
+                          "
+                        >
+                          Enter valid Phone Number
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                      <mat-form-field class="t-full-width">
+                        <mat-label>
+                          Email
+                          <span class="required">*</span>
+                        </mat-label>
+                        <input matInput formControlName="email" placeholder="Enter Email" />
+                        <mat-error *ngIf="employeesForm.controls['email'].hasError('required')">
+                          Email is <strong>required</strong>
+                        </mat-error>
+                        <mat-error
+                          *ngIf="
+                            employeesForm.controls['email'].hasError('email') &&
+                            !employeesForm.controls['email'].hasError('required')
+                          "
+                        >
+                          Email is not valid
+                        </mat-error>
+                        <mat-error *ngIf="employeesForm.controls['email'].hasError('maxlength')">
+                          Email max length is <strong>50</strong>
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                      <mat-form-field class="t-full-width">
+                        <mat-label>
+                          Date of Birth
+                          <span class="required">*</span>
+                        </mat-label>
+                        
+                        <input
+                          matInput
+                          [matDatepicker]="birthDatePicker"
+                          [max]="today"
+                          formControlName="dateOfBirth"
+                          placeholder="Enter Birth Date"
+                          name="dateOfBirth"
+                          (dateChange)="dateChange('change', $event)"
+                        />
+                        <mat-datepicker-toggle matSuffix [for]="birthDatePicker"></mat-datepicker-toggle>
+                        <mat-datepicker #birthDatePicker></mat-datepicker>
+                        <mat-error *ngIf="employeesForm.controls['dateOfBirth'].hasError('required')">
+                          Birth Date is <strong>required</strong>
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                      <mat-label class="mt-1">
+                        Gender
+                        <span class="required">*</span>
+                      </mat-label>
+                      <br />
+                      <mat-radio-group aria-label="Select Gender" formControlName="genderId">
+                        <mat-radio-button *ngFor="let g of filteredGender" [value]="g.id"> {{ g.genderName }} </mat-radio-button>
+                      </mat-radio-group>
+                      <!-- <mat-error *ngIf="employeesForm.controls['genderId'].hasError('required')">
+                        Gender is <strong>required</strong>
+                      </mat-error> -->
+                    </div>
+                    <div class="col-md-6">
+                      <mat-form-field class="t-full-width">
+                        <mat-label> Address </mat-label>
+                        <input matInput formControlName="address" placeholder="Enter address" />
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                      <mat-form-field class="t-full-width">
+                        <mat-label> Basic Salary </mat-label>
+                        <input matInput formControlName="basicSalary" placeholder="Enter your Salary" />
+                        <mat-error *ngIf="employeesForm.controls['basicSalary'].hasError('required')">
+                          Basic Salary is <strong>required</strong>
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                      <mat-form-field class="t-full-width">
+                        <mat-label>Choose a date</mat-label>
+                        <input 
+                        matInput 
+                        [matDatepicker]="picker"
+                        formControlName="joiningDate"
+                        name="joiningDate"
+                        (dateChange)="dateChange('change', $event)">
+                        <mat-hint>Joining Date</mat-hint>
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                      <mat-form-field class="t-full-width">
+                        <mat-label>Choose a date</mat-label>
+                        <input 
+                        matInput 
+                        [matDatepicker]="reginpicker"
+                        formControlName="resignDate"
+                        name="resignDate"
+                        (dateChange)="dateChange('change', $event)"
+                        >
+                        <mat-hint>Resign Date</mat-hint>
+                        <mat-datepicker-toggle matSuffix [for]="reginpicker"></mat-datepicker-toggle>
+                        <mat-datepicker #reginpicker></mat-datepicker>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                      <mat-form-field>
+                        <mat-label> Designation </mat-label>
+                        <mat-select formControlName="designationId">
+                          <mat-form-field class="example-full-width">
+                            <input
+                              matInput
+                              placeholder="Search Designation"
+                              autocomplete="off"
+                              (keyup)="onDesignationFilter($event)"
+                              (keydown)="$event.stopPropagation()"
+                            />
+                          </mat-form-field>
+                          <mat-option *ngFor="let designation of filteredDesignation | slice: 0:10" [value]="designation.id">
+                            <small>
+                              {{ designation.name }}
+                            </small>
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                      <mat-form-field>
+                        <mat-label> Department </mat-label>
+                        <mat-select formControlName="departmentId">
+                          <mat-form-field class="example-full-width">
+                            <input
+                              matInput
+                              placeholder="Search Department"
+                              autocomplete="off"
+                              (keyup)="onDepartmentFilter($event)"
+                              (keydown)="$event.stopPropagation()"
+                            />
+                          </mat-form-field>
+                          <mat-option *ngFor="let department of filteredDepartments | slice: 0:10" [value]="department.id">
+                            <small>
+                              {{ department.name }}
+                            </small>
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                      <mat-form-field class="t-full-width">
+                        <mat-label> Acount Name </mat-label>
+                        <input matInput formControlName="acountName" placeholder="Enter Your Acount Name" />
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                      <mat-form-field class="t-full-width">
+                        <mat-label> Acount Number </mat-label>
+                        <input matInput formControlName="acountNumber" placeholder="Enter Your Acount Number" />
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                      <mat-form-field class="t-full-width">
+                        <mat-label> Swift Code </mat-label>
+                        <input matInput formControlName="swiftCode" placeholder="Your Swift Code" />
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                      <mat-form-field class="t-full-width">
+                        <mat-label> Brance </mat-label>
+                        <input matInput formControlName="brance" placeholder="Your Brance" />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </mat-card-content>
+              </mat-card>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <button class="btn btn-secondary t-mat-raised-button" mat-raised-button (click)="reset()">Reset</button>
+              <button class="btn btn-secondary t-mat-raised-button" mat-raised-button (click)="clearState()">clear</button>
+              <button mat-raised-button color="primary" (click)="save()" class="btn btn-primary t-mat-raised-button">
+                {{ isEdit ? "Update" : "Add" }}
+              </button>
+            </div>
+          </div>
+        </form>
+  
+      </div>
+    </div>
+    <!-- <div class="col-md-4">
+      <div class="div-pre">
+        <p *ngIf="errors">errors</p>
+        {{errors | json}}
+        <p>Instant Value</p>
+        {{ employeesForm.getRawValue() | json }}
+  
+        <p>Last Submit Value</p>
+        {{ employeesFormValue | json }}
+      </div>
+    </div> -->
+  </div>
+  

@@ -1,0 +1,143 @@
+<div class="row">
+    <div class="col-md-12">
+        <h1>Job New Status <span>Form</span></h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12"></div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="t-basic-form t-form">
+            <form [formGroup]="jobNewStatusForm">
+                <div class="row">
+                    <div class="col-md-6">
+                        <mat-form-field class="t-full-width">
+                            <mat-label> Employee </mat-label>
+                            <mat-select formControlName="employeeId">
+                                <mat-form-field class="example-full-width">
+                                    <input matInput placeholder="Search Employee" autocomplete="off"
+                                        (keyup)="onEmployeeFilter($event)"
+                                        (keydown)="$event.stopPropagation()" />
+                                </mat-form-field>
+                                <mat-option *ngFor="let employee of filteredEmployees | slice: 0:10" [value]="employee.id">
+                              <small>
+                                {{ employee.name }}
+                              </small>
+                            </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="jobNewStatusForm.controls['employeeId'].hasError('required')">
+                                Employee is <strong>required</strong>
+                              </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-form-field class="t-full-width">
+                            <mat-label>
+                                Next Job StatusType
+                                <span class="required">*</span>
+                            </mat-label>
+                            <input matInput formControlName="nextJobStatusType" placeholder="nextJobStatusType" />
+                            <mat-error *ngIf="jobNewStatusForm.controls['nextJobStatusType'].hasError('required')">
+                                 <strong>required</strong>
+                            </mat-error>
+    
+                        </mat-form-field>
+                    </div>
+                   
+                 
+                    <div class="col-md-6">
+                        <mat-form-field class="t-full-width" appearance="outline">
+                          <mat-label>
+                            Effected Date
+                            <span class="required">*</span>
+                          </mat-label>
+                          <input
+                            matInput
+                            [matDatepicker]="effectedDatePicker"
+                            [max]="today"
+                            formControlName="effectedDate"
+                            placeholder="Date"
+                            name="effectedDate"
+                            (dateChange)="dateChange('change', $event)"
+                          />
+                          <mat-datepicker-toggle matSuffix [for]="effectedDatePicker"></mat-datepicker-toggle>
+                          <mat-datepicker #effectedDatePicker></mat-datepicker>
+                          <mat-error *ngIf="jobNewStatusForm.controls['effectedDate'].hasError('required')">
+                            Effected date is <strong>required</strong>
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-6 mt-3">
+                        <mat-checkbox  formControlName="statusType">Status</mat-checkbox>
+                     </div>
+                      <div class="col-md-6">
+                        <mat-form-field class="t-full-width" appearance="outline">
+                          <mat-label>
+                            Notification Date
+                            <span class="required">*</span>
+                          </mat-label>
+                          <input
+                            matInput
+                            [matDatepicker]="notificationDatePicker"
+                            [max]="today"
+                            formControlName="notificationDate"
+                            placeholder="notificationDate"
+                            name="notificationDate"
+                            (dateChange)="dateChange('change', $event)"
+                          />
+                          <mat-datepicker-toggle matSuffix [for]="notificationDatePicker"></mat-datepicker-toggle>
+                          <mat-datepicker #notificationDatePicker></mat-datepicker>
+                          <mat-error *ngIf="jobNewStatusForm.controls['notificationDate'].hasError('required')">
+                            Notification date is <strong>required</strong>
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                    
+                    <div class="col-md-6">
+                        <mat-form-field class="t-full-width">
+                            <mat-label>
+                                Remarks
+                                <span class="required">*</span>
+                            </mat-label>
+                            <input matInput formControlName="remarks" placeholder="remarks" />
+                            <mat-error *ngIf="jobNewStatusForm.controls['remarks'].hasError('required')">
+                                Remarks is <strong>required</strong>
+                            </mat-error>
+                            
+                        </mat-form-field>
+                    </div>
+        
+             
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <button class="btn btn-secondary t-mat-raised-button" mat-raised-button
+                            (click)="reset()">Reset</button>
+                        <button class="btn btn-secondary t-mat-raised-button" mat-raised-button
+                            (click)="clearState()">clear</button>
+                        <button mat-raised-button color="primary" (click)="save()"
+                            class="btn btn-primary t-mat-raised-button">
+                            {{ isEdit ? "Update" : "Add" }}
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+    <!-- <div class="col-md-4">
+      <div class="div-pre">
+        <p *ngIf="errors">errors</p>
+        {{errors | json}}
+        <p>Instant Value</p>
+        {{ employeesForm.getRawValue() | json }}
+  
+        <p>Last Submit Value</p>
+        {{ employeesFormValue | json }}
+      </div>
+    </div> -->
+</div>
+

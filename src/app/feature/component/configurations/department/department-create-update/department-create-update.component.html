@@ -1,0 +1,81 @@
+<div class="row">
+    <div class="col-md-12">
+        <h1>Department Information <span>Form</span></h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12"></div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="t-basic-form t-form">
+            <form [formGroup]="departmentForm">
+                <div class="row">
+                    <div class="col-md-12">
+                        <mat-card class="t-card">
+                            <mat-card-header>
+                                <mat-card-subtitle>Department Information</mat-card-subtitle>
+                            </mat-card-header>
+                            <mat-card-content>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <mat-form-field class="t-full-width">
+                                            <mat-label>
+                                                Department Name
+                                                <span class="required">*</span>
+                                            </mat-label>
+                                            <input matInput formControlName="name"
+                                                placeholder="Enter Department Name" />
+                                            <mat-error
+                                                *ngIf="departmentForm.controls['name'].hasError('required')">
+                                                Department Name is <strong>required</strong>
+                                            </mat-error>
+                                            <mat-error
+                                                *ngIf="departmentForm.controls['name'].hasError('maxlength')">
+                                                Department Name max length is <strong>20</strong>
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <mat-form-field class="t-full-width">
+                                          <mat-label> Designation </mat-label>
+                                          <mat-select formControlName="designationId">
+                                            <mat-form-field class="example-full-width">
+                                              <input
+                                                matInput
+                                                placeholder="Search Designation"
+                                                autocomplete="off"
+                                                (keyup)="onDesignationFilter($event)"
+                                                (keydown)="$event.stopPropagation()"
+                                              />
+                                            </mat-form-field>
+                                            <mat-option *ngFor="let designation of filteredDesignation | slice: 0:10" [value]="designation.id">
+                                              <small>
+                                                {{ designation.name }}
+                                              </small>
+                                            </mat-option>
+                                          </mat-select>
+                                        </mat-form-field>
+                                      </div>
+                                    
+                                </div>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <button class="t-mat-raised-button" mat-raised-button (click)="reset()">Reset</button>
+                        <button class="t-mat-raised-button" mat-raised-button (click)="clearState()">clear</button>
+                        <button mat-raised-button color="primary" (click)="save()" class="t-mat-raised-button">
+                            {{ isEdit ? "Update" : "Add" }}
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>

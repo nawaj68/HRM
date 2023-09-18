@@ -1,0 +1,62 @@
+<div class="row">
+    <div class="col-md-12">
+        <h1>Blood Group Information <span>Form</span></h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12"></div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="t-basic-form t-form">
+            <form [formGroup]="bloodgroupForm">
+                <div class="row">
+                    <div class="col-md-12">
+                        <mat-card class="t-card">
+                            <mat-card-header>
+                                <mat-card-subtitle>Blood Group Information</mat-card-subtitle>
+                            </mat-card-header>
+                            <mat-card-content>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <mat-form-field class="t-full-width">
+                                            <mat-label>
+                                                Blood Group Name
+                                                <span class="required">*</span>
+                                            </mat-label>
+                                            <input matInput formControlName="bloodGroupName"
+                                                placeholder="Enter Office Mobile Number" />
+                                            <mat-error
+                                                *ngIf="bloodgroupForm.controls['bloodGroupName'].hasError('required')">
+                                                Name is <strong>required</strong>
+                                            </mat-error>
+                                            <mat-error
+                                                *ngIf="bloodgroupForm.controls['bloodGroupName'].hasError('maxlength')">
+                                                Name max length is <strong>20</strong>
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <button class="t-mat-raised-button" mat-raised-button
+                            (click)="reset()">Reset</button>
+                        <button class="t-mat-raised-button" mat-raised-button
+                            (click)="clearState()">clear</button>
+                        <button mat-raised-button color="primary" (click)="save()"
+                            class="t-mat-raised-button">
+                            {{ isEdit ? "Update" : "Add" }}
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>

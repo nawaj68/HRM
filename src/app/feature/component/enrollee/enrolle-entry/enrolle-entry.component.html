@@ -1,0 +1,956 @@
+<div class="row">
+  <div class="col-md-12">
+    <h1>Enrolle <span>Student</span></h1>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12"></div>
+</div>
+
+<div class="row">
+  <div class="col-md-8">
+    <div class="t-basic-form t-form">
+      <form [formGroup]="userInformationForm">
+        <div class="row">
+          <div class="col-md-8">
+            <mat-card class="t-card">
+              <mat-card-header>
+                <mat-card-subtitle>Introduction</mat-card-subtitle>
+              </mat-card-header>
+              <mat-card-content>
+                <div class="row">
+                  <div class="col-md-9">
+                    <mat-form-field class="t-full-width">
+                      <mat-label> About Me </mat-label>
+                      <textarea matInput formControlName="aboutMe" rows="5" placeholder="Enter about yourself"></textarea>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="profile">
+                      <p>MK</p>
+                    </div>
+                  </div>
+                </div>
+              </mat-card-content>
+            </mat-card>
+
+            <mat-card class="t-card">
+              <mat-card-header>
+                <mat-card-subtitle>Personal Information</mat-card-subtitle>
+              </mat-card-header>
+              <mat-card-content>
+                <div class="row">
+                  <div class="col-md-6">
+                    <mat-form-field class="t-full-width">
+                      <mat-label>
+                        First Name
+                        <span class="required">*</span>
+                      </mat-label>
+                      <input matInput formControlName="firstname" placeholder="Enter First Name" />
+                      <mat-error *ngIf="userInformationForm.controls['firstname'].hasError('required')">
+                        First Name is <strong>required</strong>
+                      </mat-error>
+                      <mat-error *ngIf="userInformationForm.controls['firstname'].hasError('maxlength')">
+                        Firstname max length is <strong>20</strong>
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-6">
+                    <mat-form-field class="t-full-width">
+                      <mat-label> Last Name </mat-label>
+                      <input matInput formControlName="lastname" placeholder="Enter Last Name" />
+                      <mat-error *ngIf="userInformationForm.controls['lastname'].hasError('maxlength')">
+                        Lastname max length is <strong>30</strong>
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6">
+                    <mat-form-field class="t-full-width" appearance="outline">
+                      <mat-label>
+                        Birth Date
+                        <span class="required">*</span>
+                      </mat-label>
+                      <input
+                        matInput
+                        [matDatepicker]="birthDatePicker"
+                        [max]="today"
+                        formControlName="birthDate"
+                        placeholder="Enter Birth Date"
+                        name="birthDate"
+                      />
+                      <mat-datepicker-toggle matSuffix [for]="birthDatePicker"></mat-datepicker-toggle>
+                      <mat-datepicker #birthDatePicker></mat-datepicker>
+                      <mat-error *ngIf="userInformationForm.controls['birthDate'].hasError('required')">
+                        Birth Date is <strong>required</strong>
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-6">
+                    <mat-form-field class="t-full-width">
+                      <mat-label> Religion </mat-label>
+                      <input matInput formControlName="religion" placeholder="Enter Religion" />
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6">
+                    <mat-label class="mt-1">
+                      Gender
+                      <span class="required">*</span>
+                    </mat-label>
+                    <br />
+                    <mat-radio-group aria-label="Select Gender" formControlName="gender">
+                      <mat-radio-button *ngFor="let g of genders" [value]="g.value"> {{ g.text }} </mat-radio-button>
+                      <!-- <mat-radio-button
+            value="1"
+            [checked]="1===userInformationForm.controls['gender'].value"
+            class="mr-1"
+            >Male
+          </mat-radio-button>
+          <mat-radio-button
+            value="2"
+            [checked]="2===userInformationForm.controls['gender'].value"
+            class="mr-1"
+            >Female
+          </mat-radio-button>
+          <mat-radio-button
+            value="3"
+            [checked]="3===userInformationForm.controls['gender'].value"
+            class="mr-1"
+            >Other
+          </mat-radio-button>-->
+                    </mat-radio-group>
+                    <mat-error *ngIf="userInformationForm.controls['gender'].hasError('required')">
+                      Gender is <strong>required</strong>
+                    </mat-error>
+                  </div>
+                  <div class="col-md-6">
+                    <mat-label>
+                      Marital Status
+                      <span class="required">*</span> </mat-label
+                    ><br />
+                    <mat-radio-group aria-label="Select Marital Status" formControlName="maritalStatus">
+                      <mat-radio-button
+                        value="1"
+                        [checked]="1 === userInformationForm.controls['maritalStatus'].value"
+                        class="mr-1"
+                      >
+                        Single
+                      </mat-radio-button>
+                      <mat-radio-button
+                        value="2"
+                        [checked]="2 === userInformationForm.controls['maritalStatus'].value"
+                        class="mr-1"
+                      >
+                        Married
+                      </mat-radio-button>
+                    </mat-radio-group>
+                    <mat-error *ngIf="userInformationForm.controls['maritalStatus'].hasError('required')">
+                      Marital Status is <strong>required</strong>
+                    </mat-error>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6">
+                    <mat-form-field class="t-full-width" appearance="outline">
+                      <mat-label>
+                        Mobile Number
+                        <span class="required">*</span>
+                      </mat-label>
+                      <input matInput formControlName="mobileNumber" placeholder="Enter Mobile Number " />
+                      <mat-error *ngIf="userInformationForm.controls['mobileNumber'].hasError('required')">
+                        Mobile Number is <strong>required</strong>
+                      </mat-error>
+                      <mat-error
+                        *ngIf="
+                          userInformationForm.controls['mobileNumber'].hasError('phoneValid') &&
+                          !userInformationForm.controls['mobileNumber'].hasError('required')
+                        "
+                      >
+                        Enter valid Mobile Number
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-6">
+                    <mat-form-field class="t-full-width" appearance="outline">
+                      <mat-label>
+                        Email
+                        <span class="required">*</span>
+                      </mat-label>
+                      <input matInput formControlName="email" placeholder="Enter Email" />
+                      <mat-error *ngIf="userInformationForm.controls['email'].hasError('required')">
+                        Email is <strong>required</strong>
+                      </mat-error>
+                      <mat-error
+                        *ngIf="
+                          userInformationForm.controls['email'].hasError('email') &&
+                          !userInformationForm.controls['email'].hasError('required')
+                        "
+                      >
+                        Email is not valid
+                      </mat-error>
+                      <mat-error *ngIf="userInformationForm.controls['email'].hasError('maxlength')">
+                        Email max length is <strong>50</strong>
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-4">
+                    <mat-form-field class="t-full-width">
+                      <mat-label> NID </mat-label>
+                      <input matInput formControlName="nid" placeholder="Enter National Id Number" />
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-4">
+                    <mat-form-field class="t-full-width">
+                      <mat-label> Passport No. </mat-label>
+                      <input matInput formControlName="passportNumber" placeholder="Enter Passport No." />
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-4">
+                    <mat-form-field class="t-full-width">
+                      <mat-label> Driving License No. </mat-label>
+                      <input matInput formControlName="drivingLicenseNumber" placeholder="Enter Driving License No." />
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-4">
+                    <mat-form-field class="t-full-width">
+                      <mat-label> Father's First Name </mat-label>
+                      <input matInput formControlName="fatherFirstname" placeholder="Enter Father's First Name" />
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-4">
+                    <mat-form-field class="t-full-width">
+                      <mat-label> Father's Last Name </mat-label>
+                      <input matInput formControlName="fatherLastname" placeholder="Enter Father's Last Name" />
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-4">
+                    <mat-form-field class="t-full-width">
+                      <mat-label> Father's Phone No. </mat-label>
+                      <input matInput formControlName="fatherPhoneNumber" placeholder="Enter Father's Phone No." />
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-4">
+                    <mat-form-field class="t-full-width">
+                      <mat-label> Mother's First Name </mat-label>
+                      <input matInput formControlName="motherFirstname" placeholder="Enter Mother's First Name" />
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-4">
+                    <mat-form-field class="t-full-width">
+                      <mat-label> Mother's Last Name </mat-label>
+                      <input matInput formControlName="motherLastname" placeholder="Enter Mother's Last Name" />
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-4">
+                    <mat-form-field class="t-full-width">
+                      <mat-label> Mother's Phone No. </mat-label>
+                      <input matInput formControlName="motherPhoneNumber" placeholder="Enter Mother's Phone No." />
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-4">
+                    <mat-form-field class="t-full-width">
+                      <mat-label> Nationality </mat-label>
+                      <input matInput formControlName="nationality" placeholder="Enter Nationality" />
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-4">
+                    <mat-form-field>
+                      <mat-label> Country </mat-label>
+                      <mat-select formControlName="countryId">
+                        <mat-form-field class="t-full-width">
+                          <input matInput placeholder="Search Country" />
+                        </mat-form-field>
+                        <mat-option *ngFor="let country of countries | slice: 0:10" [value]="country.value">
+                          <small>
+                            {{ country.text }}
+                          </small>
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-4">
+                    <mat-form-field>
+                      <mat-label> State </mat-label>
+                      <mat-select formControlName="stateId">
+                        <mat-form-field class="t-full-width">
+                          <input matInput placeholder="Search State" />
+                        </mat-form-field>
+                        <mat-option *ngFor="let state of states | slice: 0:10" [value]="state.id">
+                          <small>
+                            {{ state.name }}
+                          </small>
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-4">
+                    <mat-form-field>
+                      <mat-label> City </mat-label>
+                      <mat-select formControlName="cityId">
+                        <mat-form-field class="t-full-width">
+                          <input matInput placeholder="Search City" />
+                        </mat-form-field>
+                        <mat-option *ngFor="let city of cities | slice: 0:10" [value]="city.value">
+                          <small>
+                            {{ city.text }}
+                          </small>
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-4">
+                    <mat-form-field class="t-full-width">
+                      <mat-label> Zip Code </mat-label>
+                      <input matInput formControlName="zip" placeholder="Enter Zip Code" />
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col-md-4">
+                    <mat-form-field class="t-full-width">
+                      <mat-label> Street & Flat No </mat-label>
+                      <input matInput formControlName="street" placeholder="Enter Zip Code" />
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6">
+                    <mat-form-field class="t-full-width">
+                      <mat-label> Present Address </mat-label>
+                      <textarea matInput formControlName="address1" placeholder="Enter Present Address"></textarea>
+                    </mat-form-field>
+                  </div>
+                  <!-- <div class="col-md-6">
+                    <mat-form-field class="t-full-width">
+                      <mat-label> Permanent Address </mat-label>
+                      <textarea matInput formControlName="address2" placeholder="Enter Permanent Address"></textarea>
+                    </mat-form-field>
+                  </div> -->
+                </div>
+              </mat-card-content>
+            </mat-card>
+
+            <mat-card class="t-card">
+              <mat-card-header>
+                <mat-card-subtitle>
+                  Professional Information
+                  <button class="btn btn-primary float-right" (click)="addProfessionalQualification()">
+                    <i class="fa fa-plus"></i> Add
+                  </button>
+                </mat-card-subtitle>
+              </mat-card-header>
+              <mat-card-content>
+                <div formArrayName="professionalQualitifications">
+                  <div
+                    class="row"
+                    *ngFor="let professionalQualification of professionalQualitificationFormArray; let i = index"
+                    [formGroupName]="i"
+                  >
+                    <div class="col-md-3">
+                      <mat-form-field class="t-full-width">
+                        <mat-label>
+                          designation
+                          <span class="required">*</span>
+                        </mat-label>
+                        <input matInput formControlName="designation" placeholder="Enter designation Name" />
+                        <mat-error *ngIf="professionalQualification.controls['designation'].hasError('required')">
+                          designation is <strong>required</strong>
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-md-3">
+                      <mat-form-field class="t-full-width">
+                        <mat-label>
+                          organization
+                          <span class="required">*</span>
+                        </mat-label>
+                        <input matInput formControlName="organization" placeholder="Enter organization Name" />
+                        <mat-error *ngIf="professionalQualification.controls['organization'].hasError('required')">
+                          organization is <strong>required</strong>
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-md-2">
+                      <mat-form-field class="t-full-width">
+                        <mat-label> joiningDateUtc Year <span class="required">*</span> </mat-label>
+                        <input
+                          matInput
+                          [matDatepicker]="joiningDateUtc"
+                          formControlName="joiningDateUtc"
+                          placeholder="joiningDateUtc"
+                          name="joiningDateUtc"
+                        />
+                        <mat-datepicker-toggle matSuffix [for]="joiningDateUtc"></mat-datepicker-toggle>
+                        <mat-datepicker #joiningDateUtc></mat-datepicker>
+
+                        <ng-container>
+                          <mat-error
+                            *ngIf="
+                              professionalQualification.controls['joiningDateUtc'].touched &&
+                              professionalQualification.controls['joiningDateUtc'].hasError('required')
+                            "
+                          >
+                            joiningDateUtc is <strong>required</strong>
+                          </mat-error>
+                        </ng-container>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-md-2">
+                      <mat-form-field class="t-full-width">
+                        <mat-label> endingDateUtc Year <span class="required">*</span> </mat-label>
+                        <input
+                          matInput
+                          [matDatepicker]="endingDateUtc"
+                          formControlName="endingDateUtc"
+                          placeholder="endingDateUtc"
+                          name="endingDateUtc"
+                        />
+                        <mat-datepicker-toggle matSuffix [for]="endingDateUtc"></mat-datepicker-toggle>
+                        <mat-datepicker #endingDateUtc></mat-datepicker>
+
+                        <ng-container>
+                          <mat-error
+                            *ngIf="
+                              professionalQualification.controls['endingDateUtc'].touched &&
+                              professionalQualification.controls['endingDateUtc'].hasError('required')
+                            "
+                          >
+                            endingDateUtc is <strong>required</strong>
+                          </mat-error>
+                        </ng-container>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-md-2">
+                      <mat-form-field class="t-full-width">
+                        <mat-label>
+                          Responsibilities
+                          <span class="required">*</span>
+                        </mat-label>
+                        <input matInput formControlName="responsibilities" placeholder="Enter responsibilities" />
+                        <mat-error *ngIf="professionalQualification.controls['responsibilities'].hasError('required')">
+                          responsibilities is <strong>required</strong>
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-md-2 text-right">
+                      <button class="mt-2 btn btn-danger" (click)="removeProfessionalQualification(i)">
+                        <i class="fa fa-remove"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </mat-card-content>
+            </mat-card>
+
+            <mat-card class="t-card">
+              <mat-card-header>
+                <mat-card-subtitle>
+                  Educational Information
+                  <button class="btn btn-primary float-right" (click)="addRelatedPost()"><i class="fa fa-plus"></i> Add</button>
+                </mat-card-subtitle>
+              </mat-card-header>
+              <mat-card-content>
+                <div formArrayName="relatedPosts">
+                  <div class="row" *ngFor="let relatedPost of relateduserInformationFormArray; let i = index" [formGroupName]="i">
+                    <div class="col-md-3">
+                      <mat-form-field class="t-full-width">
+                        <mat-label>
+                          Degree
+                          <span class="required">*</span>
+                        </mat-label>
+                        <input matInput formControlName="degree" placeholder="Enter Degree Name" />
+                        <mat-error *ngIf="relatedPost.controls['degree'].hasError('required')">
+                          Degree is <strong>required</strong>
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-md-3">
+                      <mat-form-field class="t-full-width">
+                        <mat-label>
+                          Institute
+                          <span class="required">*</span>
+                        </mat-label>
+                        <input matInput formControlName="institute" placeholder="Enter Institute Name" />
+                        <mat-error *ngIf="relatedPost.controls['institute'].hasError('required')">
+                          Institute is <strong>required</strong>
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-md-2">
+                      <mat-form-field class="t-full-width">
+                        <mat-label> Passing Year <span class="required">*</span> </mat-label>
+                        <input
+                          matInput
+                          [matDatepicker]="passingYear"
+                          formControlName="passingYear"
+                          placeholder="Create Date"
+                          name="passingYear"
+                        />
+                        <mat-datepicker-toggle matSuffix [for]="passingYear"></mat-datepicker-toggle>
+                        <mat-datepicker #passingYear></mat-datepicker>
+
+                        <ng-container>
+                          <mat-error
+                            *ngIf="
+                              relatedPost.controls['passingYear'].touched &&
+                              relatedPost.controls['passingYear'].hasError('required')
+                            "
+                          >
+                            Passing Year is <strong>required</strong>
+                          </mat-error>
+                        </ng-container>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-md-2">
+                      <mat-form-field class="t-full-width">
+                        <mat-label>
+                          Score
+                          <span class="required">*</span>
+                        </mat-label>
+                        <input matInput formControlName="score" placeholder="Enter Score" />
+                        <mat-error *ngIf="relatedPost.controls['score'].hasError('required')">
+                          Score is <strong>required</strong>
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-md-2">
+                      <mat-form-field class="t-full-width">
+                        <mat-label>
+                          Out of Score
+                          <span class="required">*</span>
+                        </mat-label>
+                        <input matInput formControlName="outOfScore" placeholder="Enter Out of Score" />
+                        <mat-error *ngIf="relatedPost.controls['outOfScore'].hasError('required')">
+                          Out of Score is <strong>required</strong>
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-md-2 text-right">
+                      <button class="mt-2 btn btn-danger" (click)="removeRelatedPost(i)">
+                        <i class="fa fa-remove"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </mat-card-content>
+            </mat-card>
+
+            <mat-card class="t-card">
+              <mat-card-header>
+                <mat-card-subtitle>
+                  Certifications
+                  <button class="btn btn-primary float-right" (click)="addCertification()"><i class="fa fa-plus"></i> Add</button>
+                </mat-card-subtitle>
+              </mat-card-header>
+              <mat-card-content>
+                <div formArrayName="certifications">
+                  <div class="row" *ngFor="let certification of certificationFormArray; let i = index" [formGroupName]="i">
+                    <div class="col-md-3">
+                      <mat-form-field class="t-full-width">
+                        <mat-label>
+                          Title
+                          <span class="required">*</span>
+                        </mat-label>
+                        <input matInput formControlName="title" placeholder="Enter Post title" />
+                        <mat-error *ngIf="certification.controls['title'].hasError('required')">
+                          Title is <strong>required</strong>
+                        </mat-error>
+                        <mat-error *ngIf="certification.controls['title'].hasError('maxlength')">
+                          Title max length is <strong>20</strong>
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-md-3">
+                      <mat-form-field class="t-full-width">
+                        <mat-label>
+                          Institute
+                          <span class="required">*</span>
+                        </mat-label>
+                        <input matInput formControlName="institute" placeholder="Enter institute Name" />
+                        <mat-error *ngIf="certification.controls['institute'].hasError('required')">
+                          institute is <strong>required</strong>
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-md-2">
+                      <mat-form-field class="t-full-width">
+                        <mat-label> certificationYear Date <span class="required">*</span> </mat-label>
+                        <input
+                          matInput
+                          [matDatepicker]="certificationYear"
+                          formControlName="certificationYear"
+                          placeholder="certificationYear Date"
+                          name="certificationYear"
+                        />
+                        <mat-datepicker-toggle matSuffix [for]="certificationYear"></mat-datepicker-toggle>
+                        <mat-datepicker #certificationYear></mat-datepicker>
+
+                        <ng-container>
+                          <mat-error
+                            *ngIf="
+                              certification.controls['certificationYear'].touched &&
+                              certification.controls['certificationYear'].hasError('required')
+                            "
+                          >
+                            certificationYear Date is <strong>required</strong>
+                          </mat-error>
+                        </ng-container>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-md-2 text-right">
+                      <button class="mt-2 btn btn-danger" (click)="removeCertification(i)">
+                        <i class="fa fa-remove"></i> Remove
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </mat-card-content>
+            </mat-card>
+          </div>
+          <div class="col-md-4">
+            <mat-card class="t-card">
+              <mat-card-header>
+                <mat-card-subtitle>Publish Information</mat-card-subtitle>
+              </mat-card-header>
+              <mat-card-content>
+                <div class="row">
+                  <div class="col-md-12">
+                    <mat-radio-group formControlName="status" aria-label="Select save type">
+                      <mat-radio-button value="1">Draft</mat-radio-button>
+                      <mat-radio-button value="2">Publish</mat-radio-button>
+                    </mat-radio-group>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <mat-checkbox class="example-margin" formControlName="isPublish">Check me!</mat-checkbox>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <mat-form-field class="t-full-width">
+                      <mat-label>
+                        Publish Form
+                        <span class="required">*</span>
+                      </mat-label>
+                      <input matInput [matDatepicker]="publishDatePicker" formControlName="publishDate" />
+                      <mat-datepicker-toggle matSuffix [for]="publishDatePicker"></mat-datepicker-toggle>
+                      <mat-datepicker #publishDatePicker></mat-datepicker>
+                      <mat-error *ngIf="userInformationForm.controls['publishDate'].hasError('required')">
+                        Publish Date is <strong>required</strong>
+                      </mat-error>
+                      <mat-error *ngIf="userInformationForm.controls['publishDate'].hasError('maxlength')">
+                        Publish Date max length is <strong>20</strong>
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </mat-card-content>
+            </mat-card>
+
+            <mat-card class="t-card">
+              <mat-card-header>
+                <mat-card-subtitle>Contact Information</mat-card-subtitle>
+              </mat-card-header>
+              <mat-card-content>
+                <div class="row">
+                  <div class="col-md-12">
+                    <mat-form-field class="t-full-width">
+                      <mat-label>
+                        Mobile Number
+                        <span class="required">*</span>
+                      </mat-label>
+                      <input matInput formControlName="mobileNumber" placeholder="Enter Mobile Number " />
+                      <mat-error *ngIf="userInformationForm.controls['mobileNumber'].hasError('required')">
+                        Mobile Number is <strong>required</strong>
+                      </mat-error>
+                      <mat-error
+                        *ngIf="
+                          userInformationForm.controls['mobileNumber'].hasError('phoneValid') &&
+                          !userInformationForm.controls['mobileNumber'].hasError('required')
+                        "
+                      >
+                        Enter valid Mobile Number
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <mat-form-field class="t-full-width">
+                      <mat-label>
+                        Email
+                        <span class="required">*</span>
+                      </mat-label>
+                      <input matInput formControlName="email" placeholder="Enter Email" />
+                      <mat-error *ngIf="userInformationForm.controls['email'].hasError('required')">
+                        Email is <strong>required</strong>
+                      </mat-error>
+                      <mat-error
+                        *ngIf="
+                          userInformationForm.controls['email'].hasError('email') &&
+                          !userInformationForm.controls['email'].hasError('required')
+                        "
+                      >
+                        Email is not valid
+                      </mat-error>
+                      <mat-error *ngIf="userInformationForm.controls['email'].hasError('maxlength')">
+                        Email max length is <strong>50</strong>
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <mat-form-field class="t-full-width">
+                      <mat-label> NID </mat-label>
+                      <input matInput formControlName="nid" placeholder="Enter National Id Number" />
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <mat-form-field class="t-full-width">
+                      <mat-label> Passport No. </mat-label>
+                      <input matInput formControlName="passportNumber" placeholder="Enter Passport No." />
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <mat-form-field class="t-full-width">
+                      <mat-label> Driving License No. </mat-label>
+                      <input matInput formControlName="drivingLicenseNumber" placeholder="Enter Driving License No." />
+                    </mat-form-field>
+                  </div>
+                </div>
+              </mat-card-content>
+            </mat-card>
+
+            <mat-card class="t-card">
+              <mat-card-header>
+                <mat-card-subtitle>Platform</mat-card-subtitle>
+              </mat-card-header>
+              <mat-card-content>
+                <div class="row">
+                  <div class="col-md-12">
+                    <section class="example-section">
+                      <span class="example-list-section">
+                        <mat-checkbox
+                          class="example-margin"
+                          [checked]="catgoryAllComplete"
+                          [indeterminate]="someComplete()"
+                          (change)="setAll($event.checked)"
+                        >
+                          All
+                        </mat-checkbox>
+                      </span>
+                      <span class="example-list-section">
+                        <ul>
+                          <li formArrayName="categories" *ngFor="let category of categories; let i = index">
+                            <div>
+                              <!-- [value]="category.value"  -->
+                              <mat-checkbox [checked]="category.checked" (change)="updateAllComplete($event, category)">
+                                {{ category.text }}
+                              </mat-checkbox>
+                            </div>
+                          </li>
+                        </ul>
+                      </span>
+                    </section>
+
+                    <mat-selection-list #tagList (selectionChange)="onTagListChange(tagList.selectedOptions.selected)">
+                      <mat-list-option checkboxPosition="before" *ngFor="let tag of tags" [value]="tag" [selected]="tag.checked">
+                        {{ tag.text }}
+                      </mat-list-option>
+                    </mat-selection-list>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <mat-form-field class="example-chip-list">
+                      <mat-chip-list #chipList aria-label="Fruit selection">
+                        <mat-chip *ngFor="let label of labels" [selectable]="true" [removable]="true" (removed)="remove(label)">
+                          {{ label }}
+                          <mat-icon matChipRemove *ngIf="true">cancel</mat-icon>
+                        </mat-chip>
+                        <input
+                          placeholder="New fruit..."
+                          #fruitInput
+                          formArrayName="labels"
+                          [matAutocomplete]="auto"
+                          [matChipInputFor]="chipList"
+                          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                          (matChipInputTokenEnd)="add()"
+                        />
+                        <!-- add($event) -->
+                      </mat-chip-list>
+                      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+                        <mat-option *ngFor="let fruit of filteredLabels | async" [value]="fruit">
+                          {{ fruit }}
+                        </mat-option>
+                      </mat-autocomplete>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </mat-card-content>
+            </mat-card>
+
+            <mat-card class="t-card">
+              <mat-card-header>
+                <mat-card-subtitle>Hobbies</mat-card-subtitle>
+              </mat-card-header>
+              <mat-card-content>
+                <div class="row">
+                  <div class="col-md-12">
+                    <mat-form-field class="t-full-width">
+                      <mat-label> My Hobby</mat-label>
+                      <textarea matInput formControlName="aboutMe" placeholder="Enter about yourself"></textarea>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </div>
+      </form>
+      <div class="row">
+        <div class="col-md-12">
+          <button class="btn btn-secondary" mat-raised-button (click)="reset()">Reset</button>
+          <button class="btn btn-secondary" mat-raised-button (click)="clearState()">clear</button>
+          <button mat-raised-button color="primary" (click)="save()" class="btn btn-primary">
+            {{ isEdit ? "Update" : "Add" }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="div-pre">
+      <p>Instant Value</p>
+      {{ userInformationForm.getRawValue() | json }}
+
+      <p>Last Submit Value</p>
+      {{ submitForm | json }}
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <mat-form-field>
+      <mat-label>Filter</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input />
+    </mat-form-field>
+  </div>
+</div>
+
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource" matSort>
+    <ng-container matColumnDef="select">
+      <th mat-header-cell *matHeaderCellDef>
+        <mat-checkbox
+          (change)="$event ? masterToggle() : null"
+          [checked]="selection.hasValue() && isAllSelected()"
+          [indeterminate]="selection.hasValue() && !isAllSelected()"
+          [aria-label]="checkboxLabel()"
+        >
+        </mat-checkbox>
+      </th>
+      <td mat-cell *matCellDef="let row">
+        <mat-checkbox
+          (click)="$event.stopPropagation()"
+          (change)="$event ? selection.toggle(row) : null"
+          [checked]="selection.isSelected(row)"
+          [aria-label]="checkboxLabel(row)"
+        >
+        </mat-checkbox>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="firstname">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Firstname</th>
+      <td mat-cell *matCellDef="let element">{{ element.firstname }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="lastname">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Lastame</th>
+      <td mat-cell *matCellDef="let element">{{ element.lastname }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
+      <td mat-cell *matCellDef="let element">{{ element.email }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="mobilenumber">
+      <th mat-header-cell *matHeaderCellDef>Phone</th>
+      <td mat-cell *matCellDef="let element">{{ element.mobileNumber }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Action</th>
+      <td mat-cell *matCellDef="let element">
+        <!-- <button type="button" class="btn btn-sm btn-primary mt-1 mr-1 mb-1" (click)="clone(element)">
+          <i class="fa fa-edit"></i>clone
+        </button>
+        <button type="button" class="btn btn-sm btn-primary mt-1 mr-1 mb-1" (click)="edit(element)">
+          <i class="fa fa-edit"></i>Edit
+        </button>
+        <button type="button" class="btn btn-sm btn-primary mt-1 mr-1 mb-1" (click)="remove(element)">
+          <i class="fa fa-plus"></i> Remove
+        </button> -->
+        <button mat-raised-button class="t-mat-raised-button me-1"><i class="fa fa-plus"></i> Basic</button>
+        <button mat-raised-button color="primary" class="t-mat-raised-button me-1">Primary</button>
+        <button mat-raised-button color="accent" class="t-mat-raised-button me-1">Accent</button>
+        <button mat-raised-button color="warn" class="t-mat-raised-button me-1">Warn</button>
+        <button mat-raised-button disabled class="t-mat-raised-button me-1">Disabled</button>
+        <a mat-raised-button href="https://www.google.com/" target="_blank" class="t-mat-raised-button me-1">Link</a>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
+</div>

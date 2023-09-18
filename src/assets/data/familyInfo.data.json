@@ -1,0 +1,14 @@
+[{    "id": 1,
+"userId":1,
+"emoloyeeId": 1,
+"femilyMemberName": "Rubel",
+"relationshipId": 1,
+"genderId": 1,
+"dob":"11/02/1985",
+"nationalityId":1,
+"contactNumber":1,
+"profession": "Goru",
+"address": "SK",
+"emergencyContact": "9847239847"
+
+}]

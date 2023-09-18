@@ -1,0 +1,267 @@
+<div class="row">
+    <div class="col-md-12">
+        <h1>Education Information <span>Form</span></h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12"></div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="t-basic-form t-form">
+            <form [formGroup]="educationForm">
+                <div class="row">
+                    <div class="col-md-6">
+                        <mat-form-field class="t-full-width">
+                            <mat-label> Employee </mat-label>
+                            <mat-select formControlName="employeeId">
+                                <mat-form-field class="example-full-width">
+                                    <input matInput placeholder="Search Employee" autocomplete="off"
+                                        (keyup)="onEmployeeFilter($event)"
+                                        (keydown)="$event.stopPropagation()" />
+                                </mat-form-field>
+                                <mat-option *ngFor="let employee of filteredEmployees | slice: 0:10" [value]="employee.id">
+                              <small>
+                                {{ employee.name }}
+                              </small>
+                            </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="educationForm.controls['employeeId'].hasError('required')">
+                                Employee is <strong>required</strong>
+                              </mat-error>
+                        </mat-form-field>
+                    </div>
+              
+                   <!-- <div class="col-md-6">
+                        <mat-form-field class="t-full-width">
+                            <mat-label>
+                                Asset
+                                <span class="required">*</span>
+                            </mat-label>
+                            <input matInput formControlName="assetId" placeholder="  Asset" />
+                             <mat-error *ngIf="assetRequisitionForm.controls['assetId'].hasError('required')">
+                                 <strong>required</strong>
+                            </mat-error> 
+    
+                         </mat-form-field>
+                    </div> --> 
+                       <div class="col-md-4">
+                        <mat-form-field class="t-full-width">
+                            <mat-label> Education Group </mat-label>
+                            
+                            <mat-select formControlName="egucationGroupId">
+                                <mat-form-field class="example-full-width">
+                                    <input matInput placeholder="Search Education Group" autocomplete="off"
+                                        (keyup)="onEducationgroupFilter($event)"
+                                        (keydown)="$event.stopPropagation()" />
+                                </mat-form-field>
+                                <mat-option *ngFor="let educationgroup of filteredEducationGroup | slice: 0:10" [value]="educationgroup.id">
+                              <small>
+                                {{ educationgroup.educationGroupName}}
+                              </small>
+                            </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="educationForm.controls['egucationGroupId'].hasError('required')">
+                                Education Group is <strong>required</strong>
+                              </mat-error>
+                        </mat-form-field>
+                    </div> 
+                    <div class="col-md-4">
+                        <mat-form-field class="t-full-width">
+                            <mat-label> EducationType </mat-label>
+                            
+                            <mat-select formControlName="educationTypeId">
+                                <mat-form-field class="example-full-width">
+                                    <input matInput placeholder="Search EducationType" autocomplete="off"
+                                        (keyup)="onEducationTypeFilter($event)"
+                                        (keydown)="$event.stopPropagation()" />
+                                </mat-form-field>
+                                <mat-option *ngFor="let educationType of filteredEducationType | slice: 0:10" [value]="educationType.id">
+                              <small>
+                                {{ educationType.educationTypeName}}
+                              </small>
+                            </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="educationForm.controls['educationTypeId'].hasError('required')">
+                                EducationType is <strong>required</strong>
+                              </mat-error>
+                        </mat-form-field>
+                    </div> 
+                    <div class="col-md-4">
+                        <mat-form-field class="t-full-width">
+                            <mat-label> Grade </mat-label>
+                            
+                            <mat-select formControlName="gradeId">
+                                <mat-form-field class="example-full-width">
+                                    <input matInput placeholder="Search Grade" autocomplete="off"
+                                        (keyup)="onGradeFilter($event)"
+                                        (keydown)="$event.stopPropagation()" />
+                                </mat-form-field>
+                                <mat-option *ngFor="let grade of filteredGrade | slice: 0:10" [value]="grade.id">
+                              <small>
+                                {{ grade.gradeName}}
+                              </small>
+                            </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="educationForm.controls['gradeId'].hasError('required')">
+                                Grade is <strong>required</strong>
+                              </mat-error>
+                        </mat-form-field>
+                    </div> 
+
+                      <div class="col-md-4">
+                        <mat-form-field class="t-full-width" appearance="outline">
+                          <mat-label>
+                            Passing Year
+
+                            <span class="required">*</span>
+                          </mat-label>
+                          <input
+                            matInput
+                            [matDatepicker]="passingYear"
+                            [max]="today"
+                            formControlName="passingYear"
+                            placeholder="passingYear"
+                            name="passingYear"
+                            (dateChange)="dateChange('change', $event)"
+                          />
+                          <mat-datepicker-toggle matSuffix [for]="passingYear"></mat-datepicker-toggle>
+                          <mat-datepicker #passingYear></mat-datepicker>
+                          <mat-error *ngIf="educationForm.controls['passingYear'].hasError('required')">
+                            PassingYear date is <strong>required</strong>
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                    
+                    <div class="col-md-4">
+                        <mat-form-field class="t-full-width">
+                            <mat-label>
+                                Result
+                                <span class="required">*</span>
+                            </mat-label>
+                            <input matInput formControlName="result" placeholder="result" />
+                            <mat-error *ngIf="educationForm.controls['result'].hasError('required')">
+                                Result is <strong>required</strong>
+                            </mat-error>
+                            
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                        <mat-form-field class="t-full-width">
+                            <mat-label>
+                                Scale
+                                <span class="required">*</span>
+                            </mat-label>
+                            <input matInput formControlName="scale" placeholder="scale" />
+                            <mat-error *ngIf="educationForm.controls['scale'].hasError('required')">
+                                Scale is <strong>required</strong>
+                            </mat-error>
+                            
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                        <mat-form-field class="t-full-width">
+                            <mat-label> Institute </mat-label>
+                            
+                            <mat-select formControlName="instituteId">
+                                <mat-form-field class="example-full-width">
+                                    <input matInput placeholder="Search institute" autocomplete="off"
+                                        (keyup)="onInstituteFilter($event)"
+                                        (keydown)="$event.stopPropagation()" />
+                                </mat-form-field>
+                                <mat-option *ngFor="let institute of filteredInstitute | slice: 0:10" [value]="institute.id">
+                              <small>
+                                {{ institute.instituteName}}
+                              </small>
+                            </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="educationForm.controls['instituteId'].hasError('required')">
+                                Institute is <strong>required</strong>
+                              </mat-error>
+                        </mat-form-field>
+                    </div> 
+                    <div class="col-md-4">
+                        <mat-form-field class="t-full-width">
+                            <mat-label>
+                                Foreign Degree
+                                <span class="required">*</span>
+                            </mat-label>
+                            <input matInput formControlName="foreignDegree" placeholder="foreignDegree" />
+                            <mat-error *ngIf="educationForm.controls['foreignDegree'].hasError('required')">
+                                Foreign degree is <strong>required</strong>
+                            </mat-error>
+                            
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                        <mat-form-field class="t-full-width">
+                            <mat-label>
+                                Professional Degree
+                                <span class="required">*</span>
+                            </mat-label>
+                            <input matInput formControlName="professionalDegree" placeholder="professionalDegree" />
+                            <mat-error *ngIf="educationForm.controls['professionalDegree'].hasError('required')">
+                                Professional degree is <strong>required</strong>
+                            </mat-error>
+                            
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                        <mat-form-field class="t-full-width">
+                            <mat-label>
+                                Last Education
+                                <span class="required">*</span>
+                            </mat-label>
+                            <input matInput formControlName="lastEducation" placeholder="lastEducation" />
+                            <mat-error *ngIf="educationForm.controls['lastEducation'].hasError('required')">
+                                Last education is <strong>required</strong>
+                            </mat-error>
+                            
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                        <mat-form-field class="t-full-width">
+                            <mat-label>
+                                Remarks
+                                <span class="required">*</span>
+                            </mat-label>
+                            <input matInput formControlName="remarks" placeholder="remarks" />
+                            <mat-error *ngIf="educationForm.controls['remarks'].hasError('required')">
+                                <strong>required</strong>
+                            </mat-error>
+                            
+                        </mat-form-field>
+                    </div>
+             
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <button class="btn btn-secondary t-mat-raised-button" mat-raised-button
+                            (click)="reset()">Reset</button>
+                        <button class="btn btn-secondary t-mat-raised-button" mat-raised-button
+                            (click)="clearState()">clear</button>
+                        <button mat-raised-button color="primary" (click)="save()"
+                            class="btn btn-primary t-mat-raised-button">
+                            {{ isEdit ? "Update" : "Add" }}
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+    <!-- <div class="col-md-4">
+      <div class="div-pre">
+        <p *ngIf="errors">errors</p>
+        {{errors | json}}
+        <p>Instant Value</p>
+        {{ employeesForm.getRawValue() | json }}
+  
+        <p>Last Submit Value</p>
+        {{ employeesFormValue | json }}
+      </div>
+    </div> -->
+</div>
+

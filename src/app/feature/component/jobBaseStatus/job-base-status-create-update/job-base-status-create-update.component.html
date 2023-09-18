@@ -1,0 +1,137 @@
+<div class="row">
+    <div class="col-md-6">
+      <h1> Job Base Status</h1>
+    </div>
+    <div class="col-md-6">
+      <button mat-raised-button color="primary" [routerLink]="['/company/create']" class="t-mat-raised-button me-1">
+        <mat-icon>add</mat-icon>
+        Add Company
+      </button>
+      <button mat-raised-button color="primary" [routerLink]="['/branch/create']" class="t-mat-raised-button me-1">
+        <mat-icon>add</mat-icon>
+        Add Branch
+      </button>
+      <button mat-raised-button color="primary" [routerLink]="['/project/create']" class="t-mat-raised-button me-1">
+        <mat-icon>add</mat-icon>
+        Add Project
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="t-basic-form t-form">
+        <form [formGroup]="jobbasestatusForm">
+          <div class="row">
+            <div class="col-md-12">
+             
+              <mat-card class="t-card">
+                <mat-card-header>
+                  <mat-card-subtitle>Job Status Information</mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                  <div class="row">
+                    <div class="col-md-4">
+                      <mat-form-field class="t-full-width">
+                        <mat-label>
+                         Job Base Status Code
+                          <span class="required">*</span>
+                        </mat-label>
+                        <input matInput formControlName="jobBaseStatusCode" placeholder="Enter Job Base Status Code" />
+                        <!-- <mat-error *ngIf="assetForm.controls['assetName'].hasError('required')">
+                          Name is <strong>required</strong>
+                        </mat-error>
+                        <mat-error *ngIf="assetForm.controls['assetName'].hasError('maxlength')">
+                          Name max length is <strong>20</strong>
+                        </mat-error> -->
+                      </mat-form-field>
+                    </div>   
+                    <div class="col-md-4">
+                        <mat-form-field class="t-full-width">
+                          <mat-label>
+                            Job Base Status Title
+                          </mat-label>
+                          <input matInput formControlName="jobBaseStatusTitle" placeholder="Enter Job Base Status Title" />
+                        </mat-form-field>
+                      </div>    
+
+                  </div>
+                  <div class="row">
+                    <div class="col-md-4">
+                      <mat-form-field>
+                        <mat-label> Company </mat-label>
+                        <mat-select formControlName="companyId">
+                          <mat-form-field class="example-full-width">
+                            <input matInput placeholder="Search Countries" autocomplete="off"
+                              (keyup)="onCompanyFilter($event)" (keydown)="$event.stopPropagation()" />
+                          </mat-form-field>
+                          <mat-option *ngFor="let company of filteredcompany | slice: 0:10" [value]="company.id">
+                            <small>
+                              {{ company.companyName }}
+                            </small>
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                      <mat-form-field>
+                        <mat-label> Branch </mat-label>
+                        <mat-select formControlName="branchId">
+                          <mat-form-field class="example-full-width">
+                            <input matInput placeholder="Search Asset Type" autocomplete="off"
+                              (keyup)="onBranchFilter($event)" (keydown)="$event.stopPropagation()" />
+                          </mat-form-field>
+                          <mat-option *ngFor="let branch of filteredbranch | slice: 0:10" [value]="branch.id">
+                            <small>
+                              {{ branch.branchName }}
+                            </small>
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                        <mat-form-field>
+                          <mat-label> Project </mat-label>
+                          <mat-select formControlName="projectId">
+                            <mat-form-field class="example-full-width">
+                              <input matInput placeholder="Search Project Type" autocomplete="off"
+                                (keyup)="onProjectFilter($event)" (keydown)="$event.stopPropagation()" />
+                            </mat-form-field>
+                            <mat-option *ngFor="let project of filteredproject | slice: 0:10" [value]="project.id">
+                              <small>
+                                {{ project.projectName }}
+                              </small>
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                  </div>
+                </mat-card-content>
+              </mat-card>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <button class="btn btn-secondary t-mat-raised-button" mat-raised-button (click)="reset()">Reset</button>
+              <button class="btn btn-secondary t-mat-raised-button" mat-raised-button
+                (click)="clearState()">clear</button>
+              <button mat-raised-button color="primary" (click)="save()" class="btn btn-primary t-mat-raised-button">
+                {{ isEdit ? "Update" : "Add" }}
+              </button>
+            </div>
+          </div>
+        </form>
+  
+      </div>
+    </div>
+    <!-- <div class="col-md-4">
+        <div class="div-pre">
+          <p *ngIf="errors">errors</p>
+          {{errors | json}}
+          <p>Instant Value</p>
+          {{ employeesForm.getRawValue() | json }}
+    
+          <p>Last Submit Value</p>
+          {{ employeesFormValue | json }}
+        </div>
+      </div> -->
+  </div>

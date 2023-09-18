@@ -1,0 +1,202 @@
+<div class="row">
+    <div class="col-md-12">
+        <h1>Branch Information <span>Form</span></h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12"></div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="t-basic-form t-form">
+            <form [formGroup]="branchInfoForm">
+                <div class="row">
+                    <div class="col-md-12">
+                        <mat-card class="t-card">
+                            <mat-card-header>
+                                <mat-card-subtitle>Branch Information</mat-card-subtitle>
+                            </mat-card-header>
+                            <mat-card-content>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <mat-form-field class="t-full-width" >
+                                            <mat-label>
+                                                Branch Name
+                                                <span class="required">*</span>
+                                            </mat-label>
+                                            <input matInput formControlName="branchName"
+                                                placeholder="Enter Branch Name" />
+                                            <mat-error *ngIf="branchInfoForm.controls['branchName'].hasError('required')">
+                                                Name is <strong>required</strong>
+                                            </mat-error>
+                                            <mat-error *ngIf="branchInfoForm.controls['branchName'].hasError('maxlength')">
+                                                Name max length is <strong>20</strong>
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <mat-form-field class="t-full-width">
+                                            <mat-label> Company </mat-label>
+                                            <mat-select formControlName="companyId">
+                                                <mat-form-field class="example-full-width">
+                                                    <input matInput placeholder="Search Company" autocomplete="off"
+                                                        (keyup)="onCompanyFilter($event)"
+                                                        (keydown)="$event.stopPropagation()" />
+                                                </mat-form-field>
+                                                <mat-option *ngFor="let company of filteredCompanies | slice: 0:10"
+                                                    [value]="company.id">
+                                                    <small>
+                                                        {{ company.companyName }}
+                                                    </small>
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <mat-form-field class="t-full-width" >
+                                            <mat-label>
+                                                Phone
+                                                <span class="required">*</span>
+                                            </mat-label>
+                                            <input matInput formControlName="contactNumber" placeholder="Enter Phone Number " />
+                                            <mat-error *ngIf="branchInfoForm.controls['contactNumber'].hasError('required')">
+                                            phone Number is <strong>required</strong>
+                                          </mat-error>
+                                          <mat-error
+                                            *ngIf="
+                                            branchInfoForm.controls['contactNumber'].hasError('phoneValid') &&
+                                              !branchInfoForm.controls['contactNumber'].hasError('required')
+                                            "
+                                          >
+                                            Enter valid Phone Number
+                                          </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <mat-form-field class="t-full-width" >
+                                            <mat-label>
+                                                Email
+                                                <span class="required">*</span>
+                                            </mat-label>
+                                            <input matInput formControlName="email" placeholder="Enter Email" />
+                                            <mat-error *ngIf="branchInfoForm.controls['email'].hasError('required')">
+                                                Email is <strong>required</strong>
+                                            </mat-error>
+                                            <mat-error *ngIf="
+                                            branchInfoForm.controls['email'].hasError('email') &&
+                                              !branchInfoForm.controls['email'].hasError('required')
+                                            ">
+                                                Email is not valid
+                                            </mat-error>
+                                            <mat-error *ngIf="branchInfoForm.controls['email'].hasError('maxlength')">
+                                                Email max length is <strong>50</strong>
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <mat-form-field class="t-full-width">
+                                            <mat-label> Branch Address </mat-label>
+                                            <textarea matInput formControlName="branchAddress" rows="5"
+                                                placeholder="Enter branch address details"></textarea>
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <mat-form-field>
+                                                <mat-label> Country </mat-label>
+                                                <mat-select formControlName="countryId">
+                                                    <mat-form-field class="example-full-width">
+                                                        <input matInput placeholder="Search Countries" autocomplete="off" 
+                                                            (keyup)="onCountryFilter($event)"
+                                                            (keydown)="$event.stopPropagation()" />
+                                                    </mat-form-field>
+                                                    <mat-option *ngFor="let country of filteredCountries | slice: 0:10"
+                                                        [value]="country.id">
+                                                        <small>
+                                                            {{ country.name }}
+                                                        </small>
+                                                    </mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <mat-form-field>
+                                                <mat-label> State </mat-label>
+                                                <mat-select formControlName="stateId">
+                                                    <mat-form-field class="example-full-width">
+                                                        <input matInput placeholder="Search States" autocomplete="off"
+                                                            (keyup)="onStateFilter($event)"
+                                                            (keydown)="$event.stopPropagation()" />
+                                                    </mat-form-field>
+                                                    <mat-option *ngFor="let state of filteredStates | slice: 0:10"
+                                                        [value]="state.id">
+                                                        <small>
+                                                            {{ state.name }}
+                                                        </small>
+                                                    </mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <mat-form-field>
+                                                <mat-label> City </mat-label>
+                                                <mat-select formControlName="cityId">
+                                                    <mat-form-field class="example-full-width">
+                                                        <input matInput placeholder="Search Countries"
+                                                            autocomplete="off" (keyup)="onCityFilter($event)"
+                                                            (keydown)="$event.stopPropagation()" />
+                                                    </mat-form-field>
+                                                    <mat-option *ngFor="let city of filteredCities | slice: 0:10"
+                                                        [value]="city.id">
+                                                        <small>
+                                                            {{ city.name }}
+                                                        </small>
+                                                    </mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <mat-form-field class="t-full-width">
+                                              <mat-label> Zip Code </mat-label>
+                                              <input matInput formControlName="zipCode" placeholder="Enter Zip Code" />
+                                            </mat-form-field>
+                                          </div>
+                                    </div>
+                                </div>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <button class="btn btn-secondary t-mat-raised-button" mat-raised-button
+                            (click)="reset()">Reset</button>
+                        <button class="btn btn-secondary t-mat-raised-button" mat-raised-button
+                            (click)="clearState()">clear</button>
+                        <button mat-raised-button color="primary" (click)="save()"
+                            class="btn btn-primary t-mat-raised-button">
+                            {{ isEdit ? "Update" : "Add" }}
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+    <!-- <div class="col-md-4">
+      <div class="div-pre">
+        <p *ngIf="errors">errors</p>
+        {{errors | json}}
+        <p>Instant Value</p>
+        {{ branchInfoForm.getRawValue() | json }}
+  
+        <p>Last Submit Value</p>
+        {{ branchInfoFormValue | json }}
+      </div>
+    </div> -->
+</div>

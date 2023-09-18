@@ -1,0 +1,186 @@
+<div class="row">
+    <div class="col-md-6">
+      <h1>Asset <span>Information</span></h1>
+    </div>
+    <div class="col-md-6">
+      <button mat-raised-button color="primary" [routerLink]="['/company/create']" class="t-mat-raised-button me-1">
+        <mat-icon>add</mat-icon>
+        Add Company
+      </button>
+      <button mat-raised-button color="primary" [routerLink]="['/assetType/create']" class="t-mat-raised-button me-1">
+        <mat-icon>add</mat-icon>
+        Add Asset Type
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="t-basic-form t-form">
+        <form [formGroup]="assetForm">
+          <div class="row">
+            <div class="col-md-12">
+             
+              <mat-card class="t-card">
+                <mat-card-header>
+                  <mat-card-subtitle>Asset Information</mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                  <div class="row">
+                    <div class="col-md-4">
+                      <mat-form-field class="t-full-width">
+                        <mat-label>
+                          Asset Name
+                          <span class="required">*</span>
+                        </mat-label>
+                        <input matInput formControlName="assetName" placeholder="Enter Asset Name" />
+                        <mat-error *ngIf="assetForm.controls['assetName'].hasError('required')">
+                          Name is <strong>required</strong>
+                        </mat-error>
+                        <mat-error *ngIf="assetForm.controls['assetName'].hasError('maxlength')">
+                          Name max length is <strong>20</strong>
+                        </mat-error>
+                      </mat-form-field>
+                    </div>   
+                    <div class="col-md-4">
+                        <mat-form-field class="t-full-width">
+                          <mat-label>
+                            Asset Code
+                          </mat-label>
+                          <input matInput formControlName="assetCode" placeholder="Enter Asset Code" />
+                        </mat-form-field>
+                      </div>   
+                      <div class="col-md-4">
+                        <mat-form-field class="t-full-width">
+                          <mat-label>
+                            Serial Number
+                          </mat-label>
+                          <input matInput formControlName="serialNumber" placeholder="Enter Serial Number" />
+                        </mat-form-field>
+                      </div>  
+                      <div class="col-md-4">
+                        <mat-form-field class="t-full-width">
+                          <mat-label>
+                            Model Number
+                          </mat-label>
+                          <input matInput formControlName="modelNumber" placeholder="Enter Model Number" />
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-4">
+                        <mat-form-field class="t-full-width">
+                          <mat-label>
+                            Supplier
+                          </mat-label>
+                          <input matInput formControlName="supplierId" placeholder="Enter Supplier Id" />
+                        </mat-form-field>
+                      </div>  
+                      <div class="col-md-4">
+                        <mat-form-field class="t-full-width">
+                          <mat-label>
+                            AssetStatus
+                          </mat-label>
+                          <input matInput formControlName="assetStatusId" placeholder="Enter Asset StatusId" />
+                        </mat-form-field>
+                      </div> 
+                      <div class="col-md-4">
+                        <mat-form-field class="t-full-width">
+                          <mat-label>
+                            Manufacturer
+                          </mat-label>
+                          <input matInput formControlName="manufacturerId" placeholder="Enter Manufacturer Id" />
+                        </mat-form-field>
+                      </div> 
+                  </div>
+                  <div class="row">
+                    <div class="col-md-4">
+                      <mat-form-field>
+                        <mat-label> Company </mat-label>
+                        <mat-select formControlName="companyId">
+                          <mat-form-field class="example-full-width">
+                            <input matInput placeholder="Search Countries" autocomplete="off"
+                              (keyup)="onCompanyFilter($event)" (keydown)="$event.stopPropagation()" />
+                          </mat-form-field>
+                          <mat-option *ngFor="let company of filteredcompany | slice: 0:10" [value]="company.id">
+                            <small>
+                              {{ company.companyName }}
+                            </small>
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                      <mat-form-field>
+                        <mat-label> Asset Type </mat-label>
+                        <mat-select formControlName="assetTypeId">
+                          <mat-form-field class="example-full-width">
+                            <input matInput placeholder="Search Asset Type" autocomplete="off"
+                              (keyup)="onassetTypeFilter($event)" (keydown)="$event.stopPropagation()" />
+                          </mat-form-field>
+                          <mat-option *ngFor="let assettype of filteredassetType | slice: 0:10" [value]="assettype.id">
+                            <small>
+                              {{ assettype.assetName }}
+                            </small>
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-4">
+                        <mat-form-field appearance="fill">
+                          <mat-label>Choose a date</mat-label>
+                          <input 
+                          matInput 
+                          [matDatepicker]="picker"
+                          formControlName="purchaseDate"
+                          name="purchaseDate"
+                          (dateChange)="dateChange('change', $event)">
+                          <mat-hint>Purchase Date</mat-hint>
+                          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                          <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-4">
+                        <mat-form-field appearance="fill">
+                          <mat-label>Choose a date</mat-label>
+                          <input 
+                          matInput 
+                          [matDatepicker]="endpicker"
+                          formControlName="warrantyPeriod"
+                          name="warrantyPeriod"
+                          (dateChange)="dateChange('change', $event)">
+                          <mat-hint>Warranty Period</mat-hint>
+                          <mat-datepicker-toggle matSuffix [for]="endpicker"></mat-datepicker-toggle>
+                          <mat-datepicker #endpicker></mat-datepicker>
+                        </mat-form-field>
+                      </div>
+                  </div>
+                </mat-card-content>
+              </mat-card>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <button class="btn btn-secondary t-mat-raised-button" mat-raised-button (click)="reset()">Reset</button>
+              <button class="btn btn-secondary t-mat-raised-button" mat-raised-button
+                (click)="clearState()">clear</button>
+              <button mat-raised-button color="primary" (click)="save()" class="btn btn-primary t-mat-raised-button">
+                {{ isEdit ? "Update" : "Add" }}
+              </button>
+            </div>
+          </div>
+        </form>
+  
+      </div>
+    </div>
+    <!-- <div class="col-md-4">
+        <div class="div-pre">
+          <p *ngIf="errors">errors</p>
+          {{errors | json}}
+          <p>Instant Value</p>
+          {{ employeesForm.getRawValue() | json }}
+    
+          <p>Last Submit Value</p>
+          {{ employeesFormValue | json }}
+        </div>
+      </div> -->
+  </div>

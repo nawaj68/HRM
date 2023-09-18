@@ -1,0 +1,401 @@
+<div class="row">
+  <div class="col-md-12">
+    <h1>User Information <span>Student</span></h1>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12"></div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="t-basic-form t-form">
+      <form [formGroup]="userInformationForm">
+        <div class="row">
+          <div class="col-md-12">
+            <mat-card class="t-card">
+              <mat-card-header>
+                <mat-card-subtitle>Introduction</mat-card-subtitle>
+              </mat-card-header>
+              <mat-card-content>
+                <div class="row">
+                  <div class="col-md-9">
+                    <mat-form-field class="t-full-width">
+                      <mat-label> About Me </mat-label>
+                      <textarea matInput formControlName="aboutMe" rows="5"
+                        placeholder="Enter about yourself"></textarea>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="profile" (click)="avatarClassicInput.click()">
+                      <p *ngIf="!avaterPreview">MK</p>
+                      <input type="hidden" formControlName="avatar" />
+                      <img [src]="avaterPreview" *ngIf="!!avaterPreview" alt="">
+                      <input type="file" hidden #avatarClassicInput (change)="uploadFileAttach($event)">
+                    </div>
+                  </div>
+                </div>
+              </mat-card-content>
+            </mat-card>
+
+            <mat-card class="t-card">
+              <mat-card-header>
+                <mat-card-subtitle>Personal Information</mat-card-subtitle>
+              </mat-card-header>
+              <mat-card-content>
+                <div class="row">
+                  <div class="col-md-6">
+                    <mat-form-field class="t-full-width">
+                      <mat-label>
+                        First Name
+                        <span class="required">*</span>
+                      </mat-label>
+                      <input matInput formControlName="firstname" placeholder="Enter First Name" />
+                      <mat-error *ngIf="userInformationForm.controls['firstname'].hasError('required')">
+                        First Name is <strong>required</strong>
+                      </mat-error>
+                      <mat-error *ngIf="userInformationForm.controls['firstname'].hasError('maxlength')">
+                        Firstname max length is <strong>20</strong>
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-6">
+                    <mat-form-field class="t-full-width">
+                      <mat-label> Last Name </mat-label>
+                      <input matInput formControlName="lastname" placeholder="Enter Last Name" />
+                      <mat-error *ngIf="userInformationForm.controls['lastname'].hasError('maxlength')">
+                        Lastname max length is <strong>30</strong>
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6">
+                    <mat-form-field class="t-full-width" appearance="outline">
+                      <mat-label>
+                        Birth Date
+                        <span class="required">*</span>
+                      </mat-label>
+                      <input matInput [matDatepicker]="birthDatePicker" [max]="today" formControlName="birthDate"
+                        placeholder="Enter Birth Date" name="birthDate" (dateChange)="dateChange('change', $event)" />
+                      <mat-datepicker-toggle matSuffix [for]="birthDatePicker"></mat-datepicker-toggle>
+                      <mat-datepicker #birthDatePicker></mat-datepicker>
+                      <mat-error *ngIf="userInformationForm.controls['birthDate'].hasError('required')">
+                        Birth Date is <strong>required</strong>
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <!-- <div class="col-md-6">
+                    <mat-form-field class="t-full-width">
+                      <mat-label> Religion </mat-label>
+                      <input matInput formControlName="religion" placeholder="Enter Religion" />
+                    </mat-form-field>
+                  </div> -->
+                  <div class="col-md-6">
+                    <mat-label class="mt-1">
+                      Religion
+                      <span class="required">*</span>
+                    </mat-label>
+                    <br />
+                    <mat-radio-group aria-label="Select Religion" formControlName="religion">
+                      <mat-radio-button *ngFor="let g of religions" [value]="g.value"> {{ g.text }} </mat-radio-button>
+                      <!-- <mat-radio-button
+            value="1"
+            [checked]="1===userInformationForm.controls['gender'].value"
+            class="mr-1"
+            >Male
+          </mat-radio-button>
+          <mat-radio-button
+            value="2"
+            [checked]="2===userInformationForm.controls['gender'].value"
+            class="mr-1"
+            >Female
+          </mat-radio-button>
+          <mat-radio-button
+            value="3"
+            [checked]="3===userInformationForm.controls['gender'].value"
+            class="mr-1"
+            >Other
+          </mat-radio-button>-->
+                    </mat-radio-group>
+                    <mat-error *ngIf="userInformationForm.controls['religion'].hasError('required')">
+                      Religion is <strong>required</strong>
+                    </mat-error>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6">
+                    <mat-label class="mt-1">
+                      Gender
+                      <span class="required">*</span>
+                    </mat-label>
+                    <br />
+                    <mat-radio-group aria-label="Select Gender" formControlName="genderId">
+                      <mat-radio-button *ngFor="let g of genders" [value]="g.value"> {{ g.text }} </mat-radio-button>
+                      <!-- <mat-radio-button
+            value="1"
+            [checked]="1===userInformationForm.controls['gender'].value"
+            class="mr-1"
+            >Male
+          </mat-radio-button>
+          <mat-radio-button
+            value="2"
+            [checked]="2===userInformationForm.controls['gender'].value"
+            class="mr-1"
+            >Female
+          </mat-radio-button>
+          <mat-radio-button
+            value="3"
+            [checked]="3===userInformationForm.controls['gender'].value"
+            class="mr-1"
+            >Other
+          </mat-radio-button>-->
+                    </mat-radio-group>
+                    <mat-error *ngIf="userInformationForm.controls['genderId'].hasError('required')">
+                      Gender is <strong>required</strong>
+                    </mat-error>
+                  </div>
+                  <div class="col-md-6">
+                    <mat-label>
+                      Marital Status
+                      <span class="required">*</span> </mat-label><br />
+
+
+                    <mat-radio-group aria-label="Select Marital Status" formControlName="maritalStatusId">
+                      <mat-radio-button *ngFor="let g of maritalStatuses" [value]="g.value"> {{ g.text }}
+                      </mat-radio-button>
+                      <!-- <mat-radio-button
+                        value="1"
+                        [checked]="1 === userInformationForm.controls['maritalStatusId'].value"
+                        class="mr-1"
+                      >
+                        Single
+                      </mat-radio-button>
+                      <mat-radio-button
+                        value="2"
+                        [checked]="2 === userInformationForm.controls['maritalStatusId'].value"
+                        class="mr-1"
+                      >
+                        Married
+                      </mat-radio-button> -->
+                    </mat-radio-group>
+                    <mat-error *ngIf="userInformationForm.controls['maritalStatusId'].hasError('required')">
+                      Marital Status is <strong>required</strong>
+                    </mat-error>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6">
+                    <mat-form-field class="t-full-width" appearance="outline">
+                      <mat-label>
+                        Mobile Number
+                        <span class="required">*</span>
+                      </mat-label>
+                      <input matInput formControlName="mobileNumber" placeholder="Enter Mobile Number " />
+                      <mat-error *ngIf="userInformationForm.controls['mobileNumber'].hasError('required')">
+                        Mobile Number is <strong>required</strong>
+                      </mat-error>
+                      <mat-error *ngIf="
+                          userInformationForm.controls['mobileNumber'].hasError('phoneValid') &&
+                          !userInformationForm.controls['mobileNumber'].hasError('required')
+                        ">
+                        Enter valid Mobile Number
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-6">
+                    <mat-form-field class="t-full-width" appearance="outline">
+                      <mat-label>
+                        Email
+                        <span class="required">*</span>
+                      </mat-label>
+                      <input matInput formControlName="email" placeholder="Enter Email" />
+                      <mat-error *ngIf="userInformationForm.controls['email'].hasError('required')">
+                        Email is <strong>required</strong>
+                      </mat-error>
+                      <mat-error *ngIf="
+                          userInformationForm.controls['email'].hasError('email') &&
+                          !userInformationForm.controls['email'].hasError('required')
+                        ">
+                        Email is not valid
+                      </mat-error>
+                      <mat-error *ngIf="userInformationForm.controls['email'].hasError('maxlength')">
+                        Email max length is <strong>50</strong>
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-4">
+                    <mat-form-field class="t-full-width">
+                      <mat-label> NID </mat-label>
+                      <input matInput formControlName="nationalIdentificationNumber"
+                        placeholder="Enter National Id Number" />
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-4">
+                    <mat-form-field class="t-full-width">
+                      <mat-label> Passport No. </mat-label>
+                      <input matInput formControlName="passportNumber" placeholder="Enter Passport No." />
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-4">
+                    <mat-form-field class="t-full-width">
+                      <mat-label> Driving License No. </mat-label>
+                      <input matInput formControlName="drivingLicenseNumber" placeholder="Enter Driving License No." />
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-4">
+                    <mat-form-field class="t-full-width">
+                      <mat-label> Father's First Name </mat-label>
+                      <input matInput formControlName="fatherFirstname" placeholder="Enter Father's First Name" />
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-4">
+                    <mat-form-field class="t-full-width">
+                      <mat-label> Father's Last Name </mat-label>
+                      <input matInput formControlName="fatherLastname" placeholder="Enter Father's Last Name" />
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-4">
+                    <mat-form-field class="t-full-width">
+                      <mat-label> Father's Phone No. </mat-label>
+                      <input matInput formControlName="fatherContactNumber" placeholder="Enter Father's Phone No." />
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-4">
+                    <mat-form-field class="t-full-width">
+                      <mat-label> Mother's First Name </mat-label>
+                      <input matInput formControlName="motherFirstname" placeholder="Enter Mother's First Name" />
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-4">
+                    <mat-form-field class="t-full-width">
+                      <mat-label> Mother's Last Name </mat-label>
+                      <input matInput formControlName="motherLastname" placeholder="Enter Mother's Last Name" />
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-4">
+                    <mat-form-field class="t-full-width">
+                      <mat-label> Mother's Phone No. </mat-label>
+                      <input matInput formControlName="motherContactNumber" placeholder="Enter Mother's Phone No." />
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <!-- <div class="row">
+                  <div class="col-md-4">
+                    <mat-form-field class="t-full-width">
+                      <mat-label> Nationality </mat-label>
+                      <input matInput formControlName="nationalityId" placeholder="Enter Nationality" />
+                    </mat-form-field>
+                  </div>
+                </div> -->
+
+                <div class="row">
+                  <div class="col-md-4">
+                    <mat-form-field>
+                      <mat-label> Country </mat-label>
+                      <mat-select formControlName="countryId">
+                        <mat-form-field class="example-full-width">
+                          <input matInput placeholder="Search Countries" autocomplete="off"
+                            (keyup)="onCountryFilter($event)" (keydown)="$event.stopPropagation()" />
+                        </mat-form-field>
+                        <mat-option *ngFor="let country of filteredCountries | slice: 0:10" [value]="country.id">
+                          <small>
+                            {{ country.name }}
+                          </small>
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-4">
+                    <mat-form-field>
+                      <mat-label> State </mat-label>
+                      <mat-select formControlName="stateId">
+                        <mat-form-field class="example-full-width">
+                          <input matInput placeholder="Search States" autocomplete="off" (keyup)="onStateFilter($event)"
+                            (keydown)="$event.stopPropagation()" />
+                        </mat-form-field>
+                        <mat-option *ngFor="let state of filteredStates | slice: 0:10" [value]="state.id">
+                          <small>
+                            {{ state.name }}
+                          </small>
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-4">
+                    <mat-form-field>
+                      <mat-label> City </mat-label>
+                      <mat-select formControlName="cityId">
+                        <mat-form-field class="example-full-width">
+                          <input matInput placeholder="Search Countries" autocomplete="off"
+                            (keyup)="onCityFilter($event)" (keydown)="$event.stopPropagation()" />
+                        </mat-form-field>
+                        <mat-option *ngFor="let city of filteredCities | slice: 0:10" [value]="city.id">
+                          <small>
+                            {{ city.name }}
+                          </small>
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-4">
+                    <mat-form-field class="t-full-width">
+                      <mat-label> Zip Code </mat-label>
+                      <input matInput formControlName="zipCode" placeholder="Enter Zip Code" />
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col-md-4">
+                    <mat-form-field class="t-full-width">
+                      <mat-label> Address </mat-label>
+                      <input matInput formControlName="address1" placeholder="Enter address Stret & Flat number" />
+                    </mat-form-field>
+                  </div>
+                </div>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <button class="btn btn-secondary t-mat-raised-button" mat-raised-button (click)="reset()">Reset</button>
+            <button class="btn btn-secondary t-mat-raised-button" mat-raised-button
+              (click)="clearState()">clear</button>
+            <button mat-raised-button color="primary" (click)="save()" class="btn btn-primary t-mat-raised-button">
+              {{ isEdit ? "Update" : "Add" }}
+            </button>
+          </div>
+        </div>
+      </form>
+
+    </div>
+  </div>
+  <!-- <div class="col-md-4">
+    <div class="div-pre">
+      <p *ngIf="errors">errors</p>
+      {{errors | json}}
+      <p>Instant Value</p>
+      {{ userInformationForm.getRawValue() | json }}
+
+      <p>Last Submit Value</p>
+      {{ userInformationFormValue | json }}
+    </div>
+  </div> -->
+</div>

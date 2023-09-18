@@ -1,0 +1,19 @@
+export interface Contact{
+    id:number;
+    userId:number;
+    employeeId:number;
+    officeMobileNo:string;
+    personalMobileNo:string; 
+    officeEmail:string;
+    personalEmail:string;
+    presentAddress:string;
+    presentCountryId:number;
+    presentStateId:number;
+    presentCityId:number;
+    presentZipCode:string;
+    permanentAddress:string;
+    permanentCountryId:number;
+    permanentStateId:number;
+    permanentCityId:number;
+    permanentZipCode:string
+}

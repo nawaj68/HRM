@@ -1,0 +1,216 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100% !important; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.t-full-width {
+  width: 100%;
+}
+
+/* apperance outline inout */
+.mat-form-field-appearance-outline .mat-form-field-infix {
+  padding: 8px 0 !important;
+}
+.mat-input-element {
+  font-size: 12px !important;
+}
+.mat-form-field-label-wrapper {
+  top: -10px; /*  label tooltip top down by this property */
+  padding-top: -0.5em;
+}
+.mat-form-field-infix {
+  border-top: 0.5em solid transparent; /*  label tooltip top down by this property */
+}
+.mat-form-field-appearance-outline .mat-form-field-label {
+  top: 1.7em;
+}
+.mat-form-field-appearance-outline .mat-form-field-outline-start {
+  border-radius: 0 !important;
+}
+.mat-form-field-appearance-outline .mat-form-field-outline-end {
+  border-radius: 0 !important;
+}
+.mat-form-field-label {
+  font-size: 12px !important;
+}
+/*
+.mat-form-field {
+  display: inline-block;
+  position: relative;
+  text-align: left;
+  transform: translateX(-3em) scale(0.75);
+  width: 133.33% !important;
+} */
+
+/* mat card */
+.mat-card-header-text {
+  margin: 0 !important;
+}
+
+.mat-list-base .mat-list-item .mat-list-item-content,
+.mat-list-base .mat-list-option .mat-list-item-content {
+  padding: 0 6px !important;
+}
+.mat-list-base
+  .mat-list-item.mat-list-item-with-avatar
+  .mat-list-item-content
+  .mat-list-text,
+.mat-list-base
+  .mat-list-item.mat-list-option
+  .mat-list-item-content
+  .mat-list-text,
+.mat-list-base
+  .mat-list-option.mat-list-item-with-avatar
+  .mat-list-item-content
+  .mat-list-text,
+.mat-list-base
+  .mat-list-option.mat-list-option
+  .mat-list-item-content
+  .mat-list-text {
+  padding-left: 5px !important;
+}
+.div-pre {
+  white-space: pre;
+}
+
+.mat-card-header-text {
+  width: 100%;
+}
+.btn {
+  padding: 2px 6px;
+  font-size: 13px;
+}
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.mat-list-base .mat-list-item .mat-list-item-content, .mat-list-base .mat-list-option .mat-list-item-content {
+  padding: 0 !important;
+
+}
+.mat-list-base .mat-list-item, .mat-list-base .mat-list-option{height: 30px !important;}
+.t-card {
+  margin-bottom: 15px;
+}
+
+.mat-button-base {
+  margin: 8px 8px 8px 0;
+}
+
+
+.t-mat-raised-button{
+  line-height: 30px !important;
+  padding: 0 8px !important;
+  margin-right: 10px !important;
+}
+
+.t-mr-1{margin-right:1px;}
+table{width: 100%;}
+
+
+.profile{
+  background-color: #f1f1f1;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+
+}
+
+.profile p{
+  line-height: 90px;
+  color: purple;
+  text-align: center;
+  font-size: 48px;
+}
+
+
+.mat-select-panel .mat-form-field{
+  padding: 5px 10px;
+  width: 100% !important;
+}
+
+
+/* Structure */
+.example-container {
+  position: relative;
+}
+
+.example-table-container {
+  position: relative;
+  min-height: 200px;
+  max-height: 400px;
+  overflow: auto;
+}
+
+table {
+  width: 100%;
+}
+
+.example-loading-shade {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 56px;
+  right: 0;
+  background: rgba(0, 0, 0, 0.15);
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.example-rate-limit-reached {
+  max-width: 360px;
+  text-align: center;
+}
+
+/* Column Widths */
+.mat-column-number,
+.mat-column-state {
+  max-width: 64px;
+}
+
+.mat-column-created {
+  max-width: 124px;
+}
+
+.mat-toolbar-row{ justify-content: space-between; background-color: #fff; }
+.mat-paginator{width: 100% !important;}
+
+.mat-elevation-z8 .mat-toolbar-row{padding: 0;margin: 0;}
+.mat-elevation-z8 .mat-toolbar-row .mat-icon{padding:0 8px !important; margin:0 5px; cursor: pointer;color:#666;}
+
+.t-mat-raised-button .mat-icon {
+  font-size: 18px;
+  line-height: 24px;
+  padding: 0;
+  margin: 0;
+  width: 20px !important;
+}
+
+.profile img {
+    max-width: 100%;
+    max-height: 105px !important;
+}
+
+.mat-radio-button{
+  margin-bottom: 23px !important;
+}
+
+mat-radio-button {
+  margin-right: 10px;
+}
+
+
+.mat-cell {
+  img{
+      width: 60px!important;
+      height: 60px!important;
+      border-radius: 10px;
+      padding:5px;
+  }
+}
+
+

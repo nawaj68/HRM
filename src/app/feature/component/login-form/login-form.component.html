@@ -1,0 +1,72 @@
+<div class="t-login-form">
+  <mat-card class="t-card">
+    <mat-card-header>
+      <mat-card-title>Login</mat-card-title>
+      <mat-card-subtitle>User login by user credentials</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="loginForm">
+        <div class="row">
+          <div class="col-md-12">
+            <mat-form-field class="t-full-width">
+              <mat-label>
+                Username
+                <span class="required">*</span>
+              </mat-label>
+              <input matInput formControlName="username" autocomplete="off" placeholder="Enter Username" />
+              <mat-error *ngIf="loginForm.controls['username'].hasError('required')">
+                Username Name is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <mat-form-field class="t-full-width">
+              <mat-label>
+                Password
+              </mat-label>
+              <input type="password" matInput formControlName="password" autocomplete="off" placeholder="Enter Password" />
+              <mat-error *ngIf="loginForm.controls['password'].hasError('required')">
+                Password is <strong>required</strong>
+              </mat-error>
+              <mat-error *ngIf="loginForm.controls['password'].hasError('maxlength')">
+                Password max length is <strong>30</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <mat-checkbox formControlName="rememberme">Remember me</mat-checkbox>
+            <p>
+              <a routerLink="/">Forgot password</a>, No account please <a routerLink="/"> Signup</a>
+            </p>
+          </div>
+        </div>
+      </form>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button (click)="login()" color="primary">Login</button>
+    </mat-card-actions>
+  </mat-card>
+
+  <mat-card class="t-card">
+    <mat-card-header>
+      <mat-card-title>output</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="div-pre">
+            <p>Instant Value</p>
+            {{loginForm.getRawValue()|json}}
+
+            <p>Last Submit Value</p>
+            {{submitForm|json}}
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

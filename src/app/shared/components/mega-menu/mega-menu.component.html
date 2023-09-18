@@ -1,0 +1,19 @@
+<a
+  mat-list-item
+  [ngStyle]="{'padding-left': depth * 12 + 'px'}"
+  (click)="onItemSelected(item)"
+  [ngClass]="{active: item.path ? router.isActive(item.path, true) : false, expanded: expanded}"
+  class="menu-list-item level{{ depth }}"
+>
+  <mat-icon class="routeIcon">{{ item.icon }}</mat-icon>
+  {{ item.name }}
+  <span *ngIf="item.children && item.children.length">
+    <span></span>
+    <mat-icon [@indicatorRotate]="expanded ? 'expanded' : 'collapsed'"> expand_more </mat-icon>
+  </span>
+</a>
+<div *ngIf="expanded">
+  <app-mega-menu *ngFor="let child of item.children" [item]="child" [depth]="depth + 1"> </app-mega-menu>
+</div>
+
+<!-- https://stackblitz.com/edit/dynamic-nested-sidenav-menu -->
